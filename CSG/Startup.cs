@@ -34,11 +34,11 @@ namespace CSG
             });
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
-                options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 5;
+                options.Password.RequireDigit = false;
 
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
@@ -55,7 +55,7 @@ namespace CSG
             {
                 // Cookie settings
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-                //options.LoginPath = "/Account/Login";
+                options.LoginPath = "/Home/Index";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });

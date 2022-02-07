@@ -49,6 +49,7 @@ namespace CSG.Controllers
                 }
             }
         }
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -70,14 +71,16 @@ namespace CSG.Controllers
             var user = await _userManager.FindByNameAsync(data.UserName);
             if (user != null)
             {
-                ModelState.AddModelError(nameof(data.UserName), "Bu kullanıcı adı daha önce sisteme kayıt edilmiştir.");
-                return View(data);
+                ModelState.AddModelError(nameof(registerLoginViewModel.RegisterViewModel.UserName), "Bu kullanıcı adı daha önce sisteme kayıt edilmiştir.");
+                ViewBag.Method = "register";
+                return View(nameof(Index), registerLoginViewModel);
             }
             user = await _userManager.FindByEmailAsync(data.Email);
             if (user != null)
             {
-                ModelState.AddModelError(nameof(data.Email), "Bu email daha önce sisteme kayıt edilmiştir");
-                return View(data);
+                ModelState.AddModelError(nameof(registerLoginViewModel.RegisterViewModel.Email), "Bu email daha önce sisteme kayıt edilmiştir");
+                ViewBag.Method = "register";
+                return View(nameof(Index), registerLoginViewModel);
             }
             user = new ApplicationUser()
             {
@@ -91,7 +94,7 @@ namespace CSG.Controllers
             {
                 //kullanıcıya rol atama
                 var count=_userManager.Users.Count();
-                result= await _userManager.CreateAsync(user,count==1 ? RoleNames.Admin:RoleNames.Passive);
+                result= await _userManager.AddToRoleAsync(user,count==1 ? RoleNames.Admin:RoleNames.Passive);
 
 
                 //email doğrulama
@@ -113,10 +116,10 @@ namespace CSG.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
-                return View(nameof(Index), data);
+                return View("Index", data);
             }
 
-            return View(nameof(Index));
+            return View("Index");
         }
         [HttpGet]
         [AllowAnonymous]
@@ -143,6 +146,9 @@ namespace CSG.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [AllowAnonymous]
         public IActionResult Login(RegisterLoginViewModel registerLoginViewModel)
         {
             ModelState.Remove(nameof(RegisterViewModel));
