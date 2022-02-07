@@ -1,64 +1,97 @@
-﻿@{
+﻿@model RegisterLoginViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <!-- ============================
         Slider
     ============================== -->
-    <section class="slider">
-      <div class="slick-carousel carousel-arrows-light carousel-dots-light m-slides-0"
-        data-slick='{"slidesToShow": 1, "arrows": true, "dots": true, "speed": 700,"fade": true,"cssEase": "linear"}'>
+<section class="slider">
+    <div class="slick-carousel carousel-arrows-light carousel-dots-light m-slides-0"
+         data-slick='{"slidesToShow": 1, "arrows": true, "dots": true, "speed": 700,"fade": true,"cssEase": "linear"}'>
         <div class="slide-item align-v-h bg-overlay">
-          <div class="bg-img"><img src="~/user-assets/images/sliders/1.jpg" alt="slide img"></div>
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
-                <div class="slide-item__content">
-                  <h2 class="slide-item__title">Unlock Your <br> Full Technology Potentials!!</h2>
-                  <p class="slide-item__desc">We are experienced professionals who understand that It services is
-                    changing,
-                    and are true partners who care about your success. Our team provides a consultative approach on
-                    emerging technology.</p>
-                  <a href="projects-grid.html" class="btn btn__primary btn__primary-style2 btn__hi mr-30">Our
-                    Services</a>
-                  <a class="video__btn video__btn-white popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
-                    <div class="video__player">
-                      <span class="video__player-animation"></span>
-                      <span class="video__player-animation video__player-animation-2"></span>
-                      <i class="fa fa-play"></i>
-                    </div>
-                    <span class="video__btn-title color-white">Play Video!</span>
-                  </a>
-                </div><!-- /.slide-content -->
-              </div><!-- /.col-xl-7 -->
-            </div><!-- /.row -->
-          </div><!-- /.container -->
+            <div class="bg-img"><img src="~/user-assets/images/sliders/1.jpg" alt="slide img"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                        <div class="slide-item__content">
+                            <h2 class="slide-item__title">Unlock Your <br> Full Technology Potentials!!</h2>
+                            <p class="slide-item__desc">
+                                We are experienced professionals who understand that It services is
+                                changing,
+                                and are true partners who care about your success. Our team provides a consultative approach on
+                                emerging technology.
+                            </p>
+                            <a href="projects-grid.html" class="btn btn__primary btn__primary-style2 btn__hi mr-30">
+                                Our
+                                Services
+                            </a>
+                            <a class="video__btn video__btn-white popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
+                                <div class="video__player">
+                                    <span class="video__player-animation"></span>
+                                    <span class="video__player-animation video__player-animation-2"></span>
+                                    <i class="fa fa-play"></i>
+                                </div>
+                                <span class="video__btn-title color-white">Play Video!</span>
+                            </a>
+                        </div><!-- /.slide-content -->
+                    </div><!-- /.col-xl-7 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
         </div><!-- /.slide-item -->
         <div class="slide-item align-v-h bg-overlay">
-          <div class="bg-img"><img src="~/user-assets/images/sliders/2.jpg" alt="slide img"></div>
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
-                <div class="slide-item__content">
-                  <h2 class="slide-item__title">Thinking Insights & Verified Driven Research Data!</h2>
-                  <p class="slide-item__desc">We are experienced professionals who understand that It services is
-                    changing,
-                    and are true partners who care about your success. Our team provides a consultative approach on
-                    emerging technology.</p>
-                  <a href="projects-grid.html" class="btn btn__primary btn__primary-style2 btn__hi mr-30">Our
-                    Services</a>
-                  <a class="video__btn video__btn-white popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
-                    <div class="video__player">
-                      <span class="video__player-animation"></span>
-                      <span class="video__player-animation video__player-animation-2"></span>
-                      <i class="fa fa-play"></i>
-                    </div>
-                    <span class="video__btn-title color-white">Play Video!</span>
-                  </a>
-                </div><!-- /.slide-content -->
-              </div><!-- /.col-xl-7 -->
-            </div><!-- /.row -->
-          </div><!-- /.container -->
+            <div class="bg-img"><img src="~/user-assets/images/sliders/2.jpg" alt="slide img"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                        <div class="slide-item__content">
+                            <h2 class="slide-item__title">Thinking Insights & Verified Driven Research Data!</h2>
+                            <p class="slide-item__desc">
+                                We are experienced professionals who understand that It services is
+                                changing,
+                                and are true partners who care about your success. Our team provides a consultative approach on
+                                emerging technology.
+                            </p>
+                            <a href="projects-grid.html" class="btn btn__primary btn__primary-style2 btn__hi mr-30">
+                                Our
+                                Services
+                            </a>
+                            <a class="video__btn video__btn-white popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
+                                <div class="video__player">
+                                    <span class="video__player-animation"></span>
+                                    <span class="video__player-animation video__player-animation-2"></span>
+                                    <i class="fa fa-play"></i>
+                                </div>
+                                <span class="video__btn-title color-white">Play Video!</span>
+                            </a>
+                        </div><!-- /.slide-content -->
+                    </div><!-- /.col-xl-7 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
         </div><!-- /.slide-item -->
-      </div><!-- /.carousel -->
-    </section><!-- /.slider -->
+    </div><!-- /.carousel -->
+</section><!-- /.slider -->
+
+@section Scripts{
+    <script>
+        //$(() => {
+        //    console.log("ready");
+        //    $('#login-cengiz').show();
+        //    $('#login-cengiz').trigger('click', function () {
+        //        console.log("tıklandı.")
+        //    });
+        //});
+
+        $(() => {
+            console.log("ready");
+            var str = '#' + '@ViewBag.Method' + '-cengiz';
+            console.log(str);
+            $(str).show();
+            $(str).trigger('click', function () {
+                console.log("tıklandı.")
+            });
+        });
+    </script>
+}
+
+<partial name="Partials/_FooterPartial" model="Model" />
