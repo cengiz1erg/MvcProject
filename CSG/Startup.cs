@@ -1,4 +1,5 @@
 using CSG.Data;
+using CSG.Extensions;
 using CSG.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,7 +60,7 @@ namespace CSG
                 options.SlidingExpiration = true;
             });
 
-          //  services.AddApplicationServices(this.Configuration);
+            services.AddApplicationServices(this.Configuration);
             services.AddControllersWithViews();
         }
 
