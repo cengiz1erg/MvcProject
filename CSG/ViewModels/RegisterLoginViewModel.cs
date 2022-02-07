@@ -2,7 +2,7 @@
 {
     public class RegisterLoginViewModel
     {
-        public RegisterViewModel RegisterViewModel { get; set; } = new();
-        public LoginViewModel LoginViewModel { get; set; } = new();
+        public RegisterViewModel RegisterViewModel { get; set; } 
+        public LoginViewModel LoginViewModel { get; set; } 
     }
 }

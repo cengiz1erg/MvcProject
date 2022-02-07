@@ -17,18 +17,28 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="preloader">
+        <!--<div class="preloader">
             <div class="loading">
                 <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
             </div>
-        </div><!-- /.preloader -->
+        </div>-->
+        <!-- /.preloader -->
         <partial name="Partials/_HeaderPartial" />
         @RenderBody()
-         <partial name="Partials/_FooterPartial" />
-    </div> 
+        <partial name="Partials/_FooterPartial" />
+    </div>
     <script src="~/user-assets/js/jquery-3.5.1.min.js"></script>
     <script src="~/user-assets/js/plugins.js"></script>
     <script src="~/user-assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @*<script>
+        $(() => {
+            console.log("ready")
+            $('#login-cengiz').show();
+            $('#login-cengiz').trigger('click', function () {
+                console.log("tıklandı.")
+            });
+        });
+    </script>*@
 </body>
 </html>
