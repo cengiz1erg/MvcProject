@@ -173,21 +173,22 @@
 </div><!-- /.burger-menu -->
 
 <div class="login-popup" id="login-popup" >
-    <div class="login-popup-wrapper">
-        <form method="post" class="login-popup__form" asp-controller="Home" asp-action="Login" >
+    <div class="login-popup-wrapper">       
+        <form method="post" class="login-popup__form" asp-controller="Home" asp-action="Login">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <h3 class="login-popup__title">Login!</h3>
             <p class="login-popup__desc">Connect, organize and get things done to keep your IT business safe.</p>
-             <div class="form-group mb-20">
-                        <label asp-for="@Model.LoginViewModel.UserName">UserName (required)</label>
-                        <input asp-for="@Model.LoginViewModel.UserName" type="text" 
-                        class="form-control" placeholder="username">
-                        <span asp-validation-for=@Model.LoginViewModel.UserName></span>
-             </div>
-             <div class="form-group mb-10">
-                        <label asp-for="@Model.LoginViewModel.Password">Password (required)</label>
-                        <input asp-for="@Model.LoginViewModel.Password" type="password" 
-                        class="form-control" placeholder="password">
-                        <span asp-validation-for=@Model.LoginViewModel.Password></span>
+            <div class="form-group mb-20">
+                <label asp-for="@Model.LoginViewModel.UserName">UserName (required)</label>
+                <input asp-for="@Model.LoginViewModel.UserName" type="text"
+                       class="form-control" placeholder="username">
+                <span asp-validation-for=@Model.LoginViewModel.UserName></span>
+            </div>
+            <div class="form-group mb-10">
+                <label asp-for="@Model.LoginViewModel.Password">Password (required)</label>
+                <input asp-for="@Model.LoginViewModel.Password" type="password"
+                       class="form-control" placeholder="password">
+                <span asp-validation-for=@Model.LoginViewModel.Password></span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-20">
                 <div class="custom-control custom-checkbox d-flex align-items-center">
@@ -208,28 +209,29 @@
 </div><!-- /.login-popup -->
 
 <div class="login-popup" id="register-popup" >
-    <div class="login-popup-wrapper">
-        <form  method="post" class="login-popup__form" asp-controller="Home" asp-action="Register" >
+    <div class="login-popup-wrapper">        
+        <form method="post" class="login-popup__form" asp-controller="Home" asp-action="Register">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <h3 class="login-popup__title">Register!</h3>
             <p class="login-popup__desc">Connect, organize and get things done to keep your IT business safe.</p>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-10">
                         <label asp-for="@Model.RegisterViewModel.UserName">UserName (required)</label>
-                        <input asp-for="@Model.RegisterViewModel.UserName" type="text" 
-                        class="form-control" placeholder="username">
+                        <input asp-for="@Model.RegisterViewModel.UserName" type="text"
+                               class="form-control" placeholder="username">
                         <span asp-validation-for=@Model.RegisterViewModel.UserName></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-20">
-                        <label  asp-for="@Model.RegisterViewModel.Name">Name (required)</label>
-                        <input  asp-for="@Model.RegisterViewModel.Name" type="text" class="form-control" placeholder="name">
+                        <label asp-for="@Model.RegisterViewModel.Name">Name (required)</label>
+                        <input asp-for="@Model.RegisterViewModel.Name" type="text" class="form-control" placeholder="name">
                         <span asp-validation-for=@Model.RegisterViewModel.Name></span>
                     </div>
                 </div>
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-10">
                         <label asp-for="@Model.RegisterViewModel.Surname">SurName (required)</label>
@@ -240,27 +242,27 @@
                 <div class="col-md-6">
                     <div class="form-group mb-10">
                         <label asp-for="@Model.RegisterViewModel.Password">Password (required)</label>
-                        <input asp-for="@Model.RegisterViewModel.Password" 
-                        type="password" class="form-control" placeholder="password">
-                         <span asp-validation-for=@Model.RegisterViewModel.Password></span>
+                        <input asp-for="@Model.RegisterViewModel.Password"
+                               type="password" class="form-control" placeholder="password">
+                        <span asp-validation-for=@Model.RegisterViewModel.Password></span>
                     </div>
                 </div>
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-10">
                         <label asp-for="@Model.RegisterViewModel.ConfirmPassword">ConfirmPassword (required)</label>
-                        <input asp-for="@Model.RegisterViewModel.ConfirmPassword" 
-                        type="password" class="form-control" placeholder="confirmpassword">
-                         <span asp-validation-for=@Model.RegisterViewModel.ConfirmPassword></span>
+                        <input asp-for="@Model.RegisterViewModel.ConfirmPassword"
+                               type="password" class="form-control" placeholder="confirmpassword">
+                        <span asp-validation-for=@Model.RegisterViewModel.ConfirmPassword></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-10">
-                        <label asp-for="@Model.RegisterViewModel.Email" >Email (required)</label>
-                        <input asp-for="@Model.RegisterViewModel.Email" 
-                        type="email" class="form-control" placeholder="email">
-                         <span asp-validation-for=@Model.RegisterViewModel.Email></span>
+                        <label asp-for="@Model.RegisterViewModel.Email">Email (required)</label>
+                        <input asp-for="@Model.RegisterViewModel.Email"
+                               type="email" class="form-control" placeholder="email">
+                        <span asp-validation-for=@Model.RegisterViewModel.Email></span>
                     </div>
                 </div>
             </div>
