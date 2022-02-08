@@ -1,4 +1,5 @@
-﻿using CSG.Extensions;
+﻿using AutoMapper;
+using CSG.Extensions;
 using CSG.Models;
 using CSG.Models.Identity;
 using CSG.Services;
@@ -24,15 +25,23 @@ namespace CSG.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
 
         public HomeController(
             UserManager<ApplicationUser> userManager, 
-            RoleManager<ApplicationRole> roleManager,IEmailSender emailSender)
+            RoleManager<ApplicationRole> roleManager,
+            IEmailSender emailSender,
+            SignInManager<ApplicationUser> signInManager,
+            IMapper mapper
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _emailSender = emailSender;
+            _signInManager=signInManager;
+            _mapper=mapper;
             CheckRoles();
         }
 
@@ -149,7 +158,7 @@ namespace CSG.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Login(RegisterLoginViewModel registerLoginViewModel)
+        public async Task<IActionResult> Login(RegisterLoginViewModel registerLoginViewModel)
         {
             ModelState.Remove(nameof(RegisterViewModel));
             if (!ModelState.IsValid)
@@ -158,10 +167,30 @@ namespace CSG.Controllers
                 return View(nameof(Index), registerLoginViewModel);            
             }
             var data = registerLoginViewModel.LoginViewModel;
-
-            return View(nameof(Index));
+            var result = await _signInManager.PasswordSignInAsync(data.UserName, data.Password,data.RememberMe,true);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Kullannıcı adı veya şifre hatalı");
+                ViewBag.Method = "login";
+                return View(nameof(Index), registerLoginViewModel);
+            }
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
         }
 
-
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var user= await _userManager.FindByIdAsync(HttpContext.GetUserId());
+            var model=_mapper.Map<UserProfileViewModel>(user);
+            return View(model);
+        }
     }
 }
