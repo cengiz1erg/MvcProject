@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSG.Areas.Admin.Controllers
 {
-    public class ManageController : Controller
+    public class ManageController :AdminBaseController
     {
         public IActionResult Index()
         {

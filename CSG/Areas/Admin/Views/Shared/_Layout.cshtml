@@ -3,51 +3,67 @@
 <html>
 <head>
     <meta charset="utf-8" />
-        <title>Dashboard | Adminto - Responsive Admin Dashboard Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-        <meta content="Coderthemes" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <title>@ViewBag.Title - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/admin-assets/images/favicon.ico">
 
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
+    <!-- App css -->
+    <link href="~/admin-assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+    <link href="~/admin-assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
 
-        <!-- App-dark css -->
-        <link href="assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled="disabled"/>
-        <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet" disabled="disabled"/>
+    <!-- App-dark css -->
+    <link href="~/admin-assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled="disabled" />
+    <link href="~/admin-assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet" disabled="disabled" />
 
-        <!-- icons -->
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="~/admin-assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
-    
+    <!-- Begin page -->
+    <div id="wrapper">
+        <partial name="Partials/_NavbarPartial" />
+        <partial name="Partials/_LeftSideMenuPartial" />
+        <div class="content-page">
+            <div class="content">
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+                    <div>
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <partial name="Partials/_FooterPartial" />
+
         <!-- Vendor -->
-        <script src="assets/libs/jquery/jquery.min.js"></script>
-        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/libs/simplebar/simplebar.min.js"></script>
-        <script src="assets/libs/node-waves/waves.min.js"></script>
-        <script src="assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
-        <script src="assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
-        <script src="assets/libs/feather-icons/feather.min.js"></script>
+        <script src="~/admin-assets/libs/jquery/jquery.min.js"></script>
+        <script src="~/admin-assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/admin-assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="~/admin-assets/libs/node-waves/waves.min.js"></script>
+        <script src="~/admin-assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script src="~/admin-assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
+        <script src="~/admin-assets/libs/feather-icons/feather.min.js"></script>
 
         <!-- knob plugin -->
-        <script src="assets/libs/jquery-knob/jquery.knob.min.js"></script>
+        <script src="~/admin-assets/libs/jquery-knob/jquery.knob.min.js"></script>
 
         <!--Morris Chart-->
-        <script src="assets/libs/morris.js06/morris.min.js"></script>
-        <script src="assets/libs/raphael/raphael.min.js"></script>
-  
+        <script src="~/admin-assets/libs/morris.js06/morris.min.js"></script>
+        <script src="~/admin-assets/libs/raphael/raphael.min.js"></script>
+
         <!-- Dashboar init js-->
-        <script src="assets/js/pages/dashboard.init.js"></script>
+        <script src="~/admin-assets/js/pages/dashboard.init.js"></script>
 
         <!-- App js-->
-        <script src="assets/js/app.min.js"></script>
-        
+        <script src="~/admin-assets/js/app.min.js"></script>
+    </div>
+
 </body>
 </html>
