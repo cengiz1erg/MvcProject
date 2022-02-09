@@ -1,4 +1,9 @@
-﻿<!-- =========================
+﻿@using Microsoft.AspNetCore.Identity
+@using CSG.Models.Identity
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager 
+<!-- =========================
         Header
     =========================== -->
 <header class="header header-transparent">
@@ -195,17 +200,28 @@
                 </ul><!-- /.navbar-nav -->
             </div><!-- /.navbar-collapse -->
             <ul class="navbar-actions list-unstyled mb-0 d-flex align-items-center">
-                <li>
+               @if(signInManager.IsSignedIn(Context.User))
+                {
+                    <li class="d-none d-xl-block">
+                     <a asp-controller="Home" asp-action="Logout"
+                     class="btn btn__primary btn__primary-style2 btn_ action__btn-contact">Logout
+                        </a>
+                    </li>
+                    @if(Context.User.IsInRole(RoleNames.Admin))
+                   {
+                         <li class="d-none d-xl-block">
+                     <a asp-area="Admin" asp-controller="Manage" asp-action="Index" class="btn btn__primary btn__primary-style2 btn_ action__btn-contact">Admin Panel
+                        </a>
+                    </li>
+                   }
+                }
+                else{
+                     <li>
                     <button class="action__btn action__btn-login open-login-popup">
                         <i class="icon-user"></i><span>Login</span>
                     </button>
                 </li>
-                <li class="d-none d-xl-block">
-                    <a href="request-quote.html" class="btn btn__primary btn__primary-style2 btn_ action__btn-contact">
-                        Request
-                        A Quote
-                    </a>
-                </li>
+                }
             </ul><!-- /.navbar-actions -->
         </div><!-- /.container -->
     </nav><!-- /.navabr -->
