@@ -192,6 +192,7 @@ namespace CSG.Controllers
             var model=_mapper.Map<UserProfileViewModel>(user);
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Profile(UserProfileViewModel userProfileViewModel)
         {
@@ -264,7 +265,9 @@ namespace CSG.Controllers
                 return View();
             }
         }
+
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult ResetPassword()
         {
             return View();
@@ -299,6 +302,8 @@ namespace CSG.Controllers
 
             return View();
         }
+
+        [AllowAnonymous]
         public IActionResult ConfirmResetPassword(string userId, string code)
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
