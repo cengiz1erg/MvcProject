@@ -2482,9 +2482,11 @@ input[type=radio] {
 /*----------------------------
      Header & Navbar 
 -----------------------------*/
+
 .header {
-  position: relative;
-  z-index: 1010;
+    position: relative;
+    z-index: 1010;
+    background-color: #061b49;
 }
 
 .topbar {
@@ -6999,10 +7001,21 @@ input[type=radio] {
     padding: 20px;
   }
 }
+/*-----------------------
+    map
+------------------------*/
+#map{
+   height:350px;
+   max-height:350px;
+   width:350px;
+   max-width:350px;
+   background-color:gray;
 
+}
 /*-----------------------
     banner
 ------------------------*/
+
 .banner-layout1 .heading__desc {
   font-size: 17px;
   margin-bottom: 10px;

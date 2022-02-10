@@ -19,6 +19,6 @@ namespace CSG.Areas.Admin.Controllers
         {
             return View();
         }
-
+        
     }
 }

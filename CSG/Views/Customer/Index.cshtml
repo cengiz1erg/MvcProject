@@ -1,0 +1,93 @@
+﻿<!-- =========================
+     Banner layout 1
+    =========================== -->
+<section class="banner-layout1 pt-90 pb-90 bg-overlay bg-overlay-primary">
+    <div class="bg-img"><img src="~/user-assets/images/banners/3.jpg" alt="background"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="col-inner">
+                    <div class="heading-layout2 heading-light mb-40">
+                        <h3 class="heading__title mb-30">Timely service delivery & incident resolutions!!</h3>
+                        <p class="heading__desc">
+                            Provide users with appropriate view and access permissions to requests,
+                            problems,
+                            changes, contracts, assets, solutions, and reports with our experienced professionals.
+                        </p>
+                        <p class="heading__desc">
+                            As one of the world's largest ITService Providers, our deep pool of certified
+                            engineers and IT staff are ready to help.
+                        </p>
+                    </div><!-- /.heading -->
+                    <label id="lbl-konum"></label>
+                    <div id="map"></div>
+                </div><!-- /.client-story -->
+            </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="contact-panel">
+                <form class="contact-panel__form" method="post" action="~/user-assets/php/contact.php" id="contactForm">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h4 class="contact-panel__title">Request A Quote</h4>
+                        </div> <!-- /.col-lg-12 -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="contact-name">Name (required)</label>
+                                <input type="text" class="form-control" placeholder="Name" id="contact-name" name="contact-name"
+                                       required>
+                            </div>
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="contact-email">Email (required)</label>
+                                <input type="email" class="form-control" placeholder="Email" id="contact-email"
+                                       name="contact-email" required>
+                            </div>
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="contact-Phone">Inquiry (required)</label>
+                                <select class="form-control">
+                                    <option value="0">IT Management Services</option>
+                                    <option value="1">IT Management Services 2</option>
+                                    <option value="2">IT Management Services 3</option>
+                                </select>
+                            </div>
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="contact-Phone">Phone (Optional)</label>
+                                <input type="text" class="form-control" placeholder="Phone" id="contact-Phone"
+                                       name="contact-phone">
+                            </div>
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="contact-message">Additional Details (optional)</label>
+                                <textarea class="form-control" placeholder="Describe your inquirey!" id="contact-message"
+                                          name="contact-message"></textarea>
+                            </div>
+                            <div class="custom-control custom-checkbox d-flex align-items-center mb-20">
+                                <input type="checkbox" class="custom-control-input" id="terms">
+                                <label class="custom-control-label" for="terms">I accept the privacy and terms.</label>
+                            </div>
+                            <button type="submit" class="btn btn__secondary btn__xl btn__block">Submit Request </button>
+                            <div class="contact-result"></div>
+                        </div><!-- /.col-lg-12 -->
+                    </div><!-- /.row -->
+                </form>
+            </div>
+        </div>
+    </div><!-- /.col-xl-6 -->
+    </div><!-- /.row -->
+
+</section><!-- /.Banner layout 1 -->
+@section Scripts{
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=api_key"
+    ></script>
+    <script src="~/user-assets/js/my-google-map.js"></script>
+}
+ 

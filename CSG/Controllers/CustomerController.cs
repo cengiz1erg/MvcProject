@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace CSG.Controllers
 {
-    public class AccountController : Controller
+   // [Authorize]
+    public class CustomerController : Controller
     {
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Register(RegisterLoginViewModel model)
+        public IActionResult Index()
         {
 
-            return null;
+            return View();
         }
       
       
