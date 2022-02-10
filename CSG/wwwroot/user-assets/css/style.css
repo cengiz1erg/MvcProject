@@ -7004,13 +7004,10 @@ input[type=radio] {
 /*-----------------------
     map
 ------------------------*/
-#map{
-   height:350px;
-   max-height:350px;
-   width:350px;
-   max-width:350px;
-   background-color:gray;
-
+#map {
+    width: 420px;
+    height: 420px;
+    background-color: gray;
 }
 /*-----------------------
     banner

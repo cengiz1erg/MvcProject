@@ -15,6 +15,7 @@ namespace CSG.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUserRequest>().HasKey(aur => new { aur.UserId, aur.RequestId });
             modelBuilder.Entity<ProductRequest>().HasKey(aur => new { aur.ProductId, aur.RequestId });
         }
