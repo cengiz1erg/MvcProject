@@ -87,10 +87,17 @@
 @section Scripts{
     @inject IConfiguration Configuration
     @{
-        string api_key = Configuration.GetSection("GoogleMapApiKey").ToString();
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-dVsGrr_YRQvexxXmRhdBnrBMKA43bb4&callback=initMap&libraries=&v=weekly"
-            async></script>
+        string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
+        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap&libraries=&v=weekly";
+        <script src=@link
+                async></script>
     }
-    
+    @*
+    appsettings.json içine bunu göm.
+    "GoogleMapApiKey": {
+        "Key": "blablakey"
+    }
+    *@ 
+
 }
 
