@@ -1,6 +1,8 @@
-﻿<!-- =========================
+﻿@model RequestViewModel
+<!-- =========================
      Banner layout 1
     =========================== -->
+@using CSG.Models.Entities.Enums
 @using Microsoft.Extensions.Configuration
 <section class="banner-layout1 pt-90 pb-90 bg-overlay bg-overlay-primary">
     <div class="bg-img"><img src="~/user-assets/images/banners/3.jpg" alt="background"></div>
@@ -20,54 +22,54 @@
                             engineers and IT staff are ready to help.
                         </p>
                     </div><!-- /.heading -->
-                    <label id="lbl-konum"></label>
+
                     <div id="map"></div>
                 </div><!-- /.client-story -->
             </div>
             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="contact-panel">
-                    <form class="contact-panel__form" method="post" action="~/user-assets/php/contact.php" id="contactForm">
+                    <form asp-action="Index" class="contact-panel__form" method="post">
+                        <input asp-for="LocationX" type="hidden" id="loc-x" value="" />
+                        <input asp-for="LocationY" type="hidden" id="loc-y" value="" />
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <h4 class="contact-panel__title">Request A Quote</h4>
                             </div> <!-- /.col-lg-12 -->
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-name">Name (required)</label>
-                                    <input type="text" class="form-control" placeholder="Name" id="contact-name" name="contact-name"
-                                           required>
-                                </div>
-                            </div><!-- /.col-lg-6 -->
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label for="contact-email">Email (required)</label>
-                                    <input type="email" class="form-control" placeholder="Email" id="contact-email"
-                                           name="contact-email" required>
-                                </div>
-                            </div><!-- /.col-lg-6 -->
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label for="contact-Phone">Inquiry (required)</label>
-                                    <select class="form-control">
-                                        <option value="0">IT Management Services</option>
-                                        <option value="1">IT Management Services 2</option>
-                                        <option value="2">IT Management Services 3</option>
+                                    <label asp-for="RequestType1">Request Type 1 (required)</label>
+                                    <select class="form-control" asp-for="RequestType1"
+                                            asp-items="Html.GetEnumSelectList<RequestType1>()">
+                                        <option selected="selected" value="">Please select</option>
                                     </select>
+                                    <span asp-validation-for="RequestType1" class="text-danger" />
                                 </div>
                             </div><!-- /.col-lg-6 -->
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-Phone">Phone (Optional)</label>
-                                    <input type="text" class="form-control" placeholder="Phone" id="contact-Phone"
-                                           name="contact-phone">
+                                    <label asp-for="RequestType2">Request Type 2 (required)</label>
+                                    <select class="form-control" asp-for="RequestType2"
+                                            asp-items="Html.GetEnumSelectList<RequestType2>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    <span asp-validation-for="RequestType2" class="text-danger" />
                                 </div>
                             </div><!-- /.col-lg-6 -->
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-message">Additional Details (optional)</label>
-                                    <textarea class="form-control" placeholder="Describe your inquirey!" id="contact-message"
-                                              name="contact-message"></textarea>
+                                    <label asp-for="ApartmentDetails">Apartment Details (required)</label>
+                                    <textarea asp-for="ApartmentDetails"
+                                              class="form-control" placeholder="Enter your apartment details"></textarea>
+                                    <span asp-validation-for="ApartmentDetails" class="text-danger" />
+
                                 </div>
+                                <div class="form-group">
+                                    <label asp-for="Problem">What is your problem dude? (required)</label>
+                                    <textarea asp-for="Problem" class="form-control"
+                                              placeholder="Enter your problem"></textarea>
+                                    <span asp-validation-for="Problem" class="text-danger" />
+                                </div>
+
                                 <div class="custom-control custom-checkbox d-flex align-items-center mb-20">
                                     <input type="checkbox" class="custom-control-input" id="terms">
                                     <label class="custom-control-label" for="terms">I accept the privacy and terms.</label>
@@ -89,15 +91,10 @@
     @{
         string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
         string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap&libraries=&v=weekly";
-        <script src=@link
-                async></script>
-    }
-    @*
-    appsettings.json içine bunu göm.
-    "GoogleMapApiKey": {
-        "Key": "blablakey"
-    }
-    *@ 
+    <script src=@link
+            async>
 
+    </script>
+    }
 }
 

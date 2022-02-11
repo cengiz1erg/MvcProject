@@ -2,6 +2,7 @@
 using CSG.Models.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,8 +18,10 @@ namespace CSG.Models.Entities
         public double LocationY { get; set; }
         public string ApartmentDetails { get; set; }
         //toplam harcamalarla ilgili property. o anki maliyetlere göre bla bla
-
+        public string Problem { get; set; }
         public List<ProductRequest> ProductRequests { get; set; } //ek masraflar(kablo,cihaz)
-        public List<ApplicationUserRequest> ApplicationUserRequests { get; set; } //customer+technician
+        public List<ApplicationUserRequest> ApplicationUserRequests { get; set; } = new();//customer+technician
+
+
     }
 }

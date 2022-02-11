@@ -18,12 +18,14 @@ namespace CSG.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUserRequest>().HasKey(aur => new { aur.UserId, aur.RequestId });
             modelBuilder.Entity<ProductRequest>().HasKey(aur => new { aur.ProductId, aur.RequestId });
+
         }
 
         public DbSet<Request> Requests { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUserRequest> ApplicationUserRequests { get; set; }
         public DbSet<ProductRequest> ProductRequests { get; set; }
+
 
 
     }

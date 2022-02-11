@@ -41,7 +41,10 @@ function initMap() {
                 map: map
             });
         }
+        $("#loc-x").attr("value", String(mapsMouseEvent.latLng.lat()));
+        $("#loc-y").attr("value", String(mapsMouseEvent.latLng.lng()));
         console.log("Enlem: " + mapsMouseEvent.latLng.lat());
-        console.log("Boylam: " + mapsMouseEvent.latLng.lng());
+        console.log("Boylam: " + mapsMouseEvent.latLng.lng()); 
+
     });
 }
