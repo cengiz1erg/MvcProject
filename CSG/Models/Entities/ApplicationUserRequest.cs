@@ -9,7 +9,7 @@ namespace CSG.Models.Entities
     public class ApplicationUserRequest
     {
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public string UserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public Guid RequestId { get; set; }
         public Request Request { get; set; }

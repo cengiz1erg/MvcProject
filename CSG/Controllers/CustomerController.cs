@@ -2,6 +2,7 @@
 using CSG.Extensions;
 using CSG.Models.Entities;
 using CSG.Models.Identity;
+using CSG.Repository;
 using CSG.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +15,14 @@ namespace CSG.Controllers
     public class CustomerController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly GizemContext _gizemContext;
-        public CustomerController(UserManager<ApplicationUser> userManager, GizemContext gizemContext)
+        private GizemContext _gizemContext;
+        private readonly RequestRepo _requestRepo;
+        public CustomerController(UserManager<ApplicationUser> userManager,
+                                  GizemContext gizemContext)
         {
-            _userManager=userManager;
+            _userManager = userManager;
             _gizemContext = gizemContext;
+            _requestRepo = new RequestRepo(_gizemContext);
         }
         [HttpGet]
         
@@ -45,14 +49,12 @@ namespace CSG.Controllers
                 ApartmentDetails = data.ApartmentDetails,
                 Problem = data.Problem,
             };
-            ApplicationUserRequest applicationUserRequest = new ApplicationUserRequest()
+            request.ApplicationUserRequests.Add(new ApplicationUserRequest()
             {
                 RequestId = request.Id,
-                UserId = user.Id
-            };         
-            var result = await _gizemContext.ApplicationUserRequests.AddAsync(applicationUserRequest);
-            _gizemContext.Requests.Add(request);
-            
+                ApplicationUserId = user.Id
+            });
+            _requestRepo.Add(request);            
             return View();
         }
 
