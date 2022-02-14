@@ -19,12 +19,15 @@ namespace CSG.Areas.Admin.Controllers
     {
         private GizemContext _gizemContext;
         private UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
         public UserApiController(UserManager<ApplicationUser> userManager,
-            GizemContext gizemContext)
+            GizemContext gizemContext, RoleManager<ApplicationRole> roleManager
+            )
         {
             _gizemContext = gizemContext;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public IActionResult Index()
         {
@@ -80,8 +83,45 @@ namespace CSG.Areas.Admin.Controllers
             }
             return BadRequest(); 
         }
+        public async Task<IActionResult> UpdateUser([FromBody] JsonResponseViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.value.id);
+            var roles = await _userManager.GetRolesAsync(user);
+            var removeRoleResult = await _userManager.RemoveFromRoleAsync(user, roles.FirstOrDefault());
+            if (removeRoleResult.Succeeded)
+            {
+                var roleAddResult = await _userManager.AddToRoleAsync(user, model.value.rolename);
+                if (roleAddResult.Succeeded)
+                {
+                    user.UserName = model.value.username;
+                    user.Name = model.value.name;
+                    user.SurName = model.value.surname;
+                    user.Email = model.value.email;
+                    var updateResult = await _userManager.UpdateAsync(user);
+                    if (updateResult.Succeeded)
+                    {
+                        return View("Index");
+                    }
+                    return BadRequest();
+                }
+                return BadRequest();
+            }
+            return BadRequest();
+        }
 
-        //public IActionResult UpdateUser([FromBody]JsonResponseViewModel model)
+        public async Task<IActionResult> DeleteUser([FromBody] ApiDeleteUserViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.key);
+            var deleteResult = await _userManager.DeleteAsync(user);
+            if (deleteResult.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return BadRequest();
+            
+        }
+
+        //public IActionResult UpdateUser([FromBody] JsonResponseViewModel model)
         //{
         //    _userManager.Updat
         //    if (!ModelState.IsValid)

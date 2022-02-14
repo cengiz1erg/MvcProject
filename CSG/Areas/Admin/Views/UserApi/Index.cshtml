@@ -1,5 +1,5 @@
 ﻿<ejs-grid id="Grid" height="273" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
-    <e-data-manager url="/admin/userapi/getusers" insertUrl="/admin/userapi/insertuser" updateUrl="/admin/userapi/updateuser" removeUrl="/Home/Delete" adaptor="UrlAdaptor"></e-data-manager>
+    <e-data-manager url="/admin/userapi/getusers" insertUrl="/admin/userapi/insertuser" updateUrl="/admin/userapi/updateuser" removeUrl="/admin/userapi/deleteuser" adaptor="UrlAdaptor"></e-data-manager>
     <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
     <e-grid-columns>
         <e-grid-column field="id" headerText="UserId" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
