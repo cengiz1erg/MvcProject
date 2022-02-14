@@ -67,6 +67,7 @@ namespace CSG
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTgxMDE5QDMxMzkyZTM0MmUzMG1EUGFyZzhxZ2pBOUp4UFdiaHFhZWY0c2ZuSER3cTkrZFNCY2ExK0tZbWc9");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
