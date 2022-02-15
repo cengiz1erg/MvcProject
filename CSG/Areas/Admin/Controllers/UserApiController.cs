@@ -39,13 +39,14 @@ namespace CSG.Areas.Admin.Controllers
             _productRepo = productRepo;
             _gizemContext = gizemContext;
         }
+
         public IActionResult Index()
         {
             return View();
         }
 
         #region UserCRUD
-        public IActionResult GetUsers()
+        public IActionResult GetUsers([FromBody] DataManagerRequest dm)
         {
             //var queryc = _gizemContext.UserRoles
             //    .Include(nameof(_gizemContext.Users))
@@ -67,9 +68,37 @@ namespace CSG.Areas.Admin.Controllers
                          };
             //var result = queryb.ToList();
             //ViewBag.dataSource = listy;
-            var DataSource = queryb.ToList();
+            IEnumerable DataSource = queryb.ToList();
+            DataOperations operation = new DataOperations();
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = operation.PerformSearching(DataSource, dm.Search);  //Search
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting
+            {
+                DataSource = operation.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering
+            {
+                DataSource = operation.PerformFiltering(DataSource, dm.Where, dm.Where[0].Operator);
+            }
             int count = DataSource.Cast<ApiUserViewModel>().Count();
+            if (dm.Skip != 0)
+            {
+                DataSource = operation.PerformSkip(DataSource, dm.Skip);         //Paging
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = operation.PerformTake(DataSource, dm.Take);
+            }
+            //return dm.RequiresCounts ? Json(new { result = DataSource, count = count }) : Json(DataSource);
             return Json(new { result = DataSource, count = count });
+        }
+        //dropdown 
+        public IActionResult DataBinding()
+        {
+            ViewBag.Data = new List<string> { "Operator", "Technician" };
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> InsertUser([FromBody] JsonResponseViewModel model)
         {
