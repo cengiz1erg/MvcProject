@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CSG.Repository
 {
-    public class ProductRepo: RepositoryBase<Product, Guid>
+    public class ServiceAndPriceRepo: RepositoryBase<ServiceAndPrice,Guid>
     {
-        public ProductRepo(GizemContext gizemContext) : base(gizemContext)
+        public ServiceAndPriceRepo(GizemContext gizemContext) : base(gizemContext)
         {
 
         }

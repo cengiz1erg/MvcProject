@@ -15,14 +15,13 @@ namespace CSG.Controllers
     public class CustomerController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private GizemContext _gizemContext;
+        //private GizemContext _gizemContext;
         private readonly RequestRepo _requestRepo;
         public CustomerController(UserManager<ApplicationUser> userManager,
-                                  GizemContext gizemContext)
+                                  RequestRepo requestRepo)
         {
             _userManager = userManager;
-            _gizemContext = gizemContext;
-            _requestRepo = new RequestRepo(_gizemContext);
+            _requestRepo = requestRepo;
         }
         [HttpGet]
         

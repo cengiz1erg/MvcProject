@@ -61,6 +61,7 @@ namespace CSG
             });
 
             services.AddApplicationServices(this.Configuration);
+            services.AddAppRepositories();
             services.AddControllersWithViews();
         }
 

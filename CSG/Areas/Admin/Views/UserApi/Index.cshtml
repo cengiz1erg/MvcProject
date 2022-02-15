@@ -1,23 +1,47 @@
-﻿<ejs-grid id="Grid" height="273" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
-    <e-data-manager url="/admin/userapi/getusers" insertUrl="/admin/userapi/insertuser" updateUrl="/admin/userapi/updateuser" removeUrl="/admin/userapi/deleteuser" adaptor="UrlAdaptor"></e-data-manager>
-    <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
-    <e-grid-columns>
-        <e-grid-column field="id" headerText="UserId" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
-        <e-grid-column field="username" headerText="UserName" width="120" type="string"></e-grid-column>
-        <e-grid-column field="name" headerText="Name" width="120" type="string"></e-grid-column>
-        <e-grid-column field="surname" headerText="Surname" width="120" type="string"></e-grid-column>
-        <e-grid-column field="email" headerText="E-mail" width="120" type="string"></e-grid-column>
-        <e-grid-column field="rolename" headerText="RoleName" width="120" type="string"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
+﻿<br />
+<h1>Operators and Technicians</h1>
+<div>
+    <ejs-grid id="Grid" height="273" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
+        <e-data-manager url="/admin/userapi/getusers" insertUrl="/admin/userapi/insertuser" updateUrl="/admin/userapi/updateuser" removeUrl="/admin/userapi/deleteuser" adaptor="UrlAdaptor"></e-data-manager>
+        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
+        <e-grid-columns>
+            <e-grid-column field="id" headerText="UserId" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
+            <e-grid-column field="username" headerText="UserName" width="120" type="string"></e-grid-column>
+            <e-grid-column field="name" headerText="Name" width="120" type="string"></e-grid-column>
+            <e-grid-column field="surname" headerText="Surname" width="120" type="string"></e-grid-column>
+            <e-grid-column field="email" headerText="E-mail" width="120" type="string"></e-grid-column>
+            <e-grid-column field="rolename" headerText="RoleName" width="120" type="string"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 
-@*<ejs-grid id="Grid" allowPaging="true" allowSorting="true" allowFiltering="true" toolbar="@(new List<string>() {"Search" })">
-    <e-data-manager url="/admin/userapi/getusers" adaptor="UrlAdaptor"></e-data-manager>
-    <e-grid-columns>
-        <e-grid-column field="Id" headerText="UserId" isPrimaryKey="true" type="string" width="120"></e-grid-column>
-        <e-grid-column field="UserName" headerText="UserName" type="string" width="120"></e-grid-column>
-        <e-grid-column field="Name" headerText="Name" type="string" width="120"></e-grid-column>
-        <e-grid-column field="SurName" headerText="Surname" type="string" width="120"></e-grid-column>
-        <e-grid-column field="RoleName" headerText="RoleName" type="string" width="120"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>*@
+<br />
+<br />
+<h1>Services And Prices</h1>
+<div>
+    <ejs-grid id="Grid2" height="273" toolbar="@(new List<string>() { "Edit", "Cancel", "Update" })" allowPaging="true">
+        <e-data-manager url="/admin/userapi/getservices" updateUrl="/admin/userapi/updateservice" adaptor="UrlAdaptor"></e-data-manager>
+        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
+        <e-grid-columns>
+            <e-grid-column field="id" headerText="Id" isPrimaryKey="true" isIdentity="true" width="120"></e-grid-column>
+            <e-grid-column field="requestType1" headerText="RequestType1" width="120"></e-grid-column>
+            <e-grid-column field="requestType2" headerText="RequestType2" width="120"></e-grid-column>
+            <e-grid-column field="price" headerText="Price" width="120"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
+
+<br />
+<br />
+<h1>Products And Prices</h1>
+<div>
+    <ejs-grid id="Grid3" height="273" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
+        <e-data-manager url="/admin/userapi/getproducts" insertUrl="/admin/userapi/insertproduct" removeUrl="/admin/userapi/deleteproduct" updateUrl="/admin/userapi/updateproduct" adaptor="UrlAdaptor"></e-data-manager>
+        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
+        <e-grid-columns>
+            <e-grid-column field="id" headerText="Id" isPrimaryKey="true" isIdentity="true" width="120"></e-grid-column>
+            <e-grid-column field="productname" headerText="ProductName" width="120"></e-grid-column>
+            <e-grid-column field="productprice" headerText="ProductPrice" width="120"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>

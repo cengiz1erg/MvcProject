@@ -38,13 +38,18 @@ namespace CSG.Data
                 .WithMany(r => r.ProductRequests)
                 .HasForeignKey(pr => pr.RequestId);
 
+            modelBuilder.Entity<ServiceAndPrice>()
+                .Property(x => x.Price)
+                .HasPrecision(8, 2);
+            modelBuilder.Entity<ServiceAndPrice>()
+                .HasIndex(sap => new { sap.RequestType1, sap.RequestType2 }).IsUnique();
         }
 
         public DbSet<Request> Requests { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUserRequest> ApplicationUserRequests { get; set; }
         public DbSet<ProductRequest> ProductRequests { get; set; }
-
+        public DbSet<ServiceAndPrice> ServicesAndPrices { get; set; }
 
 
     }
