@@ -48,10 +48,7 @@ namespace CSG.Areas.Admin.Controllers
         #region UserCRUD
         public IActionResult GetUsers([FromBody] DataManagerRequest dm)
         {
-            //var queryc = _gizemContext.UserRoles
-            //    .Include(nameof(_gizemContext.Users))
-            //    .Include(nameof(_gizemContext.Roles))
-            //    .Where(ur => ur.RoleId == )
+
             var queryb = from ur in _gizemContext.UserRoles
                          join u in _gizemContext.Users on ur.UserId equals u.Id
                          join r in _gizemContext.Roles on ur.RoleId equals r.Id
@@ -66,8 +63,6 @@ namespace CSG.Areas.Admin.Controllers
                              email = u.Email,
                              rolename = r.Name
                          };
-            //var result = queryb.ToList();
-            //ViewBag.dataSource = listy;
             IEnumerable DataSource = queryb.ToList();
             DataOperations operation = new DataOperations();
             if (dm.Search != null && dm.Search.Count > 0)
@@ -93,12 +88,6 @@ namespace CSG.Areas.Admin.Controllers
             }
             //return dm.RequiresCounts ? Json(new { result = DataSource, count = count }) : Json(DataSource);
             return Json(new { result = DataSource, count = count });
-        }
-        //dropdown 
-        public IActionResult DataBinding()
-        {
-            ViewBag.Data = new List<string> { "Operator", "Technician" };
-            return RedirectToAction("Index");
         }
         public async Task<IActionResult> InsertUser([FromBody] JsonResponseViewModel model)
         {
