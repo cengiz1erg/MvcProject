@@ -1,44 +1,19 @@
 ﻿<br />
-<h1>User Requests</h1>
+<h1>All User Requests</h1>
 <div>
-    <ejs-grid id="Grid"  allowSorting="true" allowFiltering="true"  height="273" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
-        <e-data-manager url="/operator/getrequests" insertUrl="/admin/userapi/insertuser" updateUrl="/admin/userapi/updateuser" removeUrl="/admin/userapi/deleteuser" adaptor="UrlAdaptor"></e-data-manager>
-        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
+    <ejs-grid id="Grid1" height="273" allowPaging="true">
+        <e-data-manager url="/operator/getrequests" adaptor="UrlAdaptor"></e-data-manager>
+        <e-grid-editSettings mode="Normal"></e-grid-editSettings>
         <e-grid-columns>
-            <e-grid-column field="requestid" visible="true" headerText="requestid" visible="true" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requestid" visible="false" headerText="requestid" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
             <e-grid-column field="username" headerText="UserName" width="120" type="string"></e-grid-column>
-            <e-grid-column field="apartmentdetails" headerText="apartmentdetails" width="120" type="string"></e-grid-column>      
-            <e-grid-column field="requesttype1" headerText="requesttype1" width="120" type="string"></e-grid-column>        
-            <e-grid-column field="requesttype2" headerText="requesttype2" width="120" type="string"></e-grid-column>        
-            <e-grid-column field="requeststatus" headerText="requeststatus" width="120" type="string"></e-grid-column>        
+            <e-grid-column field="apartmentdetails" headerText="apartmentdetails" width="120" type="string"></e-grid-column>
+            <e-grid-column field="problem" headerText="problem" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requesttype1" headerText="requesttype1" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requesttype2" headerText="requesttype2" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requeststatus" headerText="requeststatus" width="120" type="string"></e-grid-column>
         </e-grid-columns>
     </ejs-grid>
 </div>
 <br />
-<h1>Technician Requests</h1>
-<div>
-    <ejs-grid id="Grid"  allowSorting="true" allowFiltering="true"  height="273" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
-        <e-data-manager url="/operator/gettechnician" insertUrl="/admin/userapi/insertuser" updateUrl="/admin/userapi/updateuser" removeUrl="/admin/userapi/deleteuser" adaptor="UrlAdaptor"></e-data-manager>
-        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
-        <e-grid-columns>
-            <e-grid-column field="requestId" visible="true" headerText="requestid" visible="true" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
-            <e-grid-column field="userId" visible="true" headerText="requestid" visible="true" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
-             <e-grid-column field="roleId" visible="true" headerText="requestid" visible="true" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
-            <e-grid-column field="userName" headerText="UserName" width="120" type="string"></e-grid-column>
-            <e-grid-column field="userRole" headerText="apartmentdetails" width="120" type="string"></e-grid-column>      
-            <e-grid-column field="request1Name" headerText="requesttype1" width="120" type="string"></e-grid-column>        
-            <e-grid-column field="request2Name" headerText="requesttype2" width="120" type="string"></e-grid-column>        
-            <e-grid-column field="requeststatus" headerText="requeststatus" width="120" type="string"></e-grid-column>        
-        </e-grid-columns>
-    </ejs-grid>
-</div>
-@*
-<ejs-grid id="Grid" dataSource="@ViewBag.DataSource">
-    <e-grid-columns>
-        <e-grid-column field="OrderID" headerText="Order ID" textAlign="Right" width="120"></e-grid-column>
-        <e-grid-column field="CustomerID" headerText="Customer ID"  width="150"></e-grid-column> 
-        <e-grid-column field="OrderDate" headerText="Order Date" width="130" textAlign="Right" format="yMd"></e-grid-column>      
-        <e-grid-column field="ShipCountry" headerText="Ship Country" width="120"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-*@
+<br />
