@@ -89,6 +89,30 @@
     }
 </script>
 
+@*Modal dialog'daki Save Changes butonuna basılınca...*@
+<script>
+    function AssignTechnician() {
+        var model = {
+            technicianid: window.selectedrecordstech,
+            requestid: window.selectedrecordsnaur
+        };
+        $.ajax({
+            url: '@Url.Action("Save", "Operator")',
+            type: "POST",
+            data: model,
+            dataType: "json",
+            error: function(request, status, error) {
+                console.log(request);
+                window.location.reload();
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+    }
+</script>
+
 @*#Grid2'nin son sütununa buton ekleyen şablon*@
 <script id="template" type="text/x-template">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="font-size: 20px; padding: 1px 5px; width: 40px; height: 30px">

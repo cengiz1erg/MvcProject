@@ -15,7 +15,7 @@ namespace CSG.Models.Identity
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
 
-        public List<ApplicationUserRequest> ApplicationUserRequests { get; set; }
+        public List<ApplicationUserRequest> ApplicationUserRequests { get; set; } = new();
 
     }
 }

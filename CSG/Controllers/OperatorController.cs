@@ -1,6 +1,7 @@
 ﻿using CSG.Data;
 using CSG.Extensions;
 using CSG.Models;
+using CSG.Models.Entities;
 using CSG.Models.Entities.Enums;
 using CSG.Models.Identity;
 using CSG.Repository;
@@ -8,6 +9,7 @@ using CSG.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -71,6 +73,7 @@ namespace CSG.Controllers
 
             return View();
         }
+
         #region GetAllRequests
         public IActionResult GetRequests()
         {
@@ -100,6 +103,41 @@ namespace CSG.Controllers
         }
         #endregion
 
+        #region AJAXCalls
+
+        [HttpPost]
+        public async Task<ActionResult> Save(string technicianid, string requestid)
+        {
+            var technician = await _userManager.FindByIdAsync(technicianid);
+            var technicianrequestcount = technician.ApplicationUserRequests.Count;
+            // eğer iki parametreden biri boş gelirse hata mesajı
+            if (technicianid == null || requestid == null)
+                return BadRequest(new
+                {
+                    Message = "Bad req."
+                });
+            var aur = new ApplicationUserRequest()
+            {
+                RequestId = new Guid(requestid),
+                ApplicationUserId = technicianid
+            };
+
+            _gizemContext.ApplicationUserRequests.Add(aur);
+            var result = _gizemContext.SaveChanges();
+            if (result == 1)
+            {
+                var request = _requestRepo.GetById(new Guid(requestid));
+                request.RequestStatus = RequestStatus.Solving;
+                _requestRepo.Update(request);
+            }
+
+
+            var technicianagain = await _userManager.FindByIdAsync(technicianid);
+            var technicianrequestcountagain = technicianagain.ApplicationUserRequests.Count;
+            return Ok();
+        }
+
+        #endregion
 
 
         //public IActionResult GetTechnician()
