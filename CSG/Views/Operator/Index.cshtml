@@ -1,4 +1,5 @@
-﻿<br />
+﻿@*Tüm talepler burada*@
+<br />
 <h1>All User Requests</h1>
 <div>
     <ejs-grid id="Grid1" height="273" allowPaging="true">
@@ -17,3 +18,91 @@
 </div>
 <br />
 <br />
+
+@*Herhangi bir Teknisyene atanmamış talepler burada*@
+<h1>Not Assigned User Requests</h1>
+<div>
+    @*NAUR = Not Assigned User Requests*@
+    <ejs-grid id="Grid2" dataSource="@ViewBag.DataSourceNAUR" rowSelected="rowSelectedNAUR" allowPaging="true" allowSorting="true">
+        <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+        <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column field="requestid" visible="true" headerText="requestid" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
+            <e-grid-column field="username" headerText="UserName" width="120" type="string"></e-grid-column>
+            <e-grid-column field="apartmentdetails" headerText="apartmentdetails" width="120" type="string"></e-grid-column>
+            <e-grid-column field="problem" headerText="problem" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requesttype1" headerText="requesttype1" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requesttype2" headerText="requesttype2" width="120" type="string"></e-grid-column>
+            <e-grid-column field="requeststatus" headerText="requeststatus" width="120" type="string"></e-grid-column>
+            <e-grid-column headerText="Add Technician" template="#template" width="300"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
+
+@*Butona tıklayınca açılan modal dialog (bootstrap)*@
+@*https://getbootstrap.com/docs/4.0/components/modal/*@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ejs-grid id="Grid3" dataSource="@ViewBag.DataSourceTechList" rowSelected="rowSelectedTechList" allowSelection="true" allowPaging="true">
+                    <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+                    <e-grid-pagesettings pageCount="2"></e-grid-pagesettings>
+                    <e-grid-columns>
+                        <e-grid-column field="technicianid" visible="true" headerText="technicianid"></e-grid-column>
+                        <e-grid-column field="technicianname" headerText="technicianname"></e-grid-column>
+                        <e-grid-column field="technicianrequestcount" headerText="technicianrequestcount"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="AssignTechnician()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*#Grid2'nin seçili satırını alacak*@
+<script>
+    function rowSelectedNAUR(args) {
+        var selectedrowNAURindex = this.getSelectedRowIndexes();
+        console.log("request index: " + selectedrowNAURindex);
+        console.log("request id: " + this.getSelectedRecords()[0].requestid);
+        window.selectedrecordsnaur = this.getSelectedRecords()[0].requestid;
+    }
+</script>
+
+@*#Grid3'ün seçili satırını alacak*@
+<script>
+    function rowSelectedTechList(args) {
+        var selectedrowtechindex = this.getSelectedRowIndexes();
+        console.log("technician index: " + selectedrowtechindex);
+        console.log("technician id: " + this.getSelectedRecords()[0].technicianid);
+        window.selectedrecordstech = this.getSelectedRecords()[0].technicianid;
+    }
+</script>
+
+@*#Grid2'nin son sütununa buton ekleyen şablon*@
+<script id="template" type="text/x-template">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="font-size: 20px; padding: 1px 5px; width: 40px; height: 30px">
+        Add
+    </button>
+</script>
+
+@section Styles{
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+}
+@section Scripts{
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@ 
+    @*slim.min.js silindi yerine min.js konuldu çünkü ajax çalışmadı.*@
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+}

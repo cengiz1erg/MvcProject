@@ -35,6 +35,40 @@ namespace CSG.Controllers
 
         public IActionResult Index()
         {
+            var query1 = from aur in _gizemContext.ApplicationUserRequests
+                         join u in _gizemContext.Users on aur.ApplicationUserId equals u.Id
+                         join r in _gizemContext.Requests on aur.RequestId equals r.Id
+                         join ur in _gizemContext.UserRoles on u.Id equals ur.UserId
+                         join rol in _gizemContext.Roles on ur.RoleId equals rol.Id
+                         where rol.Name == RoleNames.Customer || rol.Name == RoleNames.Admin || rol.Name == RoleNames.Passive
+                         where r.RequestStatus == RequestStatus.Delivered
+                         select new OperatorRequestViewModel
+                         {
+                             requestid = r.Id,
+                             username = u.UserName,
+                             apartmentdetails = r.ApartmentDetails,
+                             problem = r.Problem,
+                             requesttype1 = r.RequestType1.ToString(),
+                             requesttype2 = r.RequestType2.ToString(),
+                             requeststatus = r.RequestStatus.ToString()
+                         };
+            var DataSource1 = query1.ToList();
+            //NAUR = Not Assigned User Requests
+            ViewBag.DataSourceNAUR = DataSource1;
+
+            var query2 = (from aur in _gizemContext.UserRoles
+                          join u in _gizemContext.Users on aur.UserId equals u.Id
+                          join r in _gizemContext.Roles on aur.RoleId equals r.Id
+                          where r.Name == nameof(RoleNames.Technician)
+                          select new TechnicianAndRequestsViewModel
+                          {
+                              technicianid = u.Id,
+                              technicianname = u.UserName,
+                              technicianrequestcount = u.ApplicationUserRequests.Count
+                          });
+            var DataSource2 = query2.ToList();
+            ViewBag.DataSourceTechList = DataSource2;
+
             return View();
         }
         #region GetAllRequests
