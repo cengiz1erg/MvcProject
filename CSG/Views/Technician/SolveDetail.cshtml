@@ -1,0 +1,31 @@
+﻿<h1>This is the detail of solving</h1>
+<ejs-grid id="Grid" dataSource="@ViewBag.DataSourceProducts" allowSelection="true" rowSelected="rowSelected" RowDeselected="rowSelected" allowPaging="true">
+    <e-grid-selectionsettings type="Multiple" enableToggle="true"></e-grid-selectionsettings>
+    <e-grid-pagesettings pageCount="2"></e-grid-pagesettings>
+    <e-grid-columns>
+        <e-grid-column type="checkbox" width="50"></e-grid-column>
+        <e-grid-column field="ProductName" headerText="ProductName" width="140"></e-grid-column>
+        <e-grid-column field="ProductPrice" headerText="ProductPrice" width="185" textAlign="Right"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="form-group">
+        <label >Problem Solving Details</label>
+        <textarea class="form-control" placeholder="Enter What did you do for solving Problem"></textarea>
+        <span  class="text-danger" />
+
+    </div>
+    <button type="submit" class="btn btn__secondary btn__xl btn__block">Submit Request </button>
+    <div class="contact-result"></div>
+</div><!-- /.col-lg-12 -->
+
+<script>
+    function rowSelected(args) {
+        var selectedrowindex = this.getSelectedRowIndexes();  // get the selected row indexes.
+        console.log("request index: " + selectedrowindex);
+        var selectedrecords = this.getSelectedRecords();  // get the selected records.
+        console.log("request records: " + selectedrecords);
+        window.selectedrecords = selectedrecords;
+    }
+</script>
