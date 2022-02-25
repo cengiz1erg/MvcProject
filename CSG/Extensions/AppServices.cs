@@ -1,5 +1,6 @@
 ﻿using CSG.MapperProfiles;
 using CSG.Services;
+using CSG.Services.Payment;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,11 +13,12 @@ namespace CSG.Extensions
             IConfiguration configuration)
         {
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IPaymentService, IyzicoPaymentService>();
             services.AddAutoMapper(options =>
             {
                 options.AddProfile(typeof(AccountProfile));
             });
-
+            
             return services;
         }
     }
