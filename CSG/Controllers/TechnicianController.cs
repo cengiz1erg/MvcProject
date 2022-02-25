@@ -1,12 +1,73 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CSG.Data;
+using CSG.Extensions;
+using CSG.Models.Identity;
+using CSG.Repository;
+using CSG.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CSG.Controllers
 {
     public class TechnicianController : Controller
     {
-        public IActionResult Index()
+        private readonly GizemContext _gizemContext;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ProductRepo _productRepo;
+
+        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo)
+        {
+            _gizemContext = gizemContext;
+            _userManager = userManager;
+            _productRepo = productRepo;
+
+        }
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+            var userId = HttpContext.GetUserId();
+            var query1 = from aur in _gizemContext.ApplicationUserRequests
+                        join u in _gizemContext.Users on aur.ApplicationUserId equals u.Id
+                        join r in _gizemContext.Requests on aur.RequestId equals r.Id
+                        where aur.ApplicationUserId == userId
+                        select new OperatorRequestViewModel
+                        {
+                            requestid = r.Id,
+                            apartmentdetails = r.ApartmentDetails,
+                            problem = r.Problem,
+                            requesttype1 = r.RequestType1.ToString(),
+                            requesttype2 = r.RequestType2.ToString(),
+                            requeststatus = r.RequestStatus.ToString()
+                        };
+            var DataSource1 = query1.ToList();
+            ViewBag.TechnicianName = $"{user.Name} {user.SurName}";
+            ViewBag.DatasourceTechReq = DataSource1;
+
+            return View();
+        }
+        [HttpGet]
+        public IActionResult SolveDetail(string id)
+        {
+            var products = _productRepo.Get();
+            var DataSource2 = products.ToList();
+            ViewBag.DataSourceProducts = DataSource2;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SolveDetail()
         {
             return View();
+        }
+
+        public IActionResult RequestId(string selectedrowreq)
+        {
+            //return Json(new { selectedrowreq = selectedrowreq });
+            return Ok();
         }
     }
 }

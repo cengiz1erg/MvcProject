@@ -17,9 +17,9 @@ namespace CSG.Models.Entities
         public double LocationX { get; set; }
         public double LocationY { get; set; }
         public string ApartmentDetails { get; set; }
-        //toplam harcamalarla ilgili property. o anki maliyetlere göre bla bla
         public string Problem { get; set; }
-        public List<ProductRequest> ProductRequests { get; set; } //ek masraflar(kablo,cihaz)
+        public string Explanation { get; set; }
+        public List<ProductRequest> ProductRequests { get; set; } //ek ürünler
         public List<ApplicationUserRequest> ApplicationUserRequests { get; set; } = new();//customer+technician
 
 

@@ -102,7 +102,7 @@ namespace CSG.Areas.Admin.Controllers
                 SurName = model.value.surname,
                 Email = model.value.email
             };
-            var result = await _userManager.CreateAsync(user, "12312");
+            var result = await _userManager.CreateAsync(user, "P@ssword.1");
             if (result.Succeeded)
             {
                 var result2 = await _userManager.AddToRoleAsync(user, model.value.rolename);
