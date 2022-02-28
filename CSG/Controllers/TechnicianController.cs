@@ -17,23 +17,32 @@ namespace CSG.Controllers
         private readonly GizemContext _gizemContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ProductRepo _productRepo;
+        private readonly SignInManager<ApplicationUser> _signInManager; 
 
-        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo)
+        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo, SignInManager<ApplicationUser> signInManager)
         {
             _gizemContext = gizemContext;
             _userManager = userManager;
             _productRepo = productRepo;
-
+            _signInManager = signInManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string userId)
         {
-            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
-            var userId = HttpContext.GetUserId();
+            string userIdd = null;
+            if (userId != null)
+            {
+                userIdd = userId;
+            }
+            else
+            {
+                userIdd = HttpContext.GetUserId();               
+            }
+            var user = await _userManager.FindByIdAsync(userIdd);
             var query1 = from aur in _gizemContext.ApplicationUserRequests
                         join u in _gizemContext.Users on aur.ApplicationUserId equals u.Id
                         join r in _gizemContext.Requests on aur.RequestId equals r.Id
-                        where aur.ApplicationUserId == userId
-                        select new OperatorRequestViewModel
+                        where aur.ApplicationUserId == userIdd
+                         select new OperatorRequestViewModel
                         {
                             requestid = r.Id,
                             apartmentdetails = r.ApartmentDetails,

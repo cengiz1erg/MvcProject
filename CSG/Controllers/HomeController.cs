@@ -169,16 +169,33 @@ namespace CSG.Controllers
             }
             var data = registerLoginViewModel.LoginViewModel;
             var result = await _signInManager.PasswordSignInAsync(data.UserName, data.Password,data.RememberMe,true);          
-            var veri = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var userId = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+            var user= await _userManager.FindByNameAsync(data.UserName);
             //var model =  _mapper.Map<UserProfileViewModel>(userId);
             if (result.Succeeded)
             {
-                if ( await _userManager.IsInRoleAsync(userId, RoleNames.Customer))
+                if ( await _userManager.IsInRoleAsync(user, RoleNames.Customer))
                 {
-                    return View("Index", "Customer");
+                    //return View("Index", "Customer");
+                    return RedirectToAction("Index", "Customer");
+
                 }
-                return RedirectToAction("Index", "Home", new { area = "" });
+                else if(await _userManager.IsInRoleAsync(user, RoleNames.Admin))
+                {
+                    var url = Url.Action("Index", "Manage", new { area = "Admin" });
+                    return LocalRedirect(url);
+                }
+                else if (await _userManager.IsInRoleAsync(user, RoleNames.Operator))
+                {
+                    //return View("Index", "Operator");
+                    return RedirectToAction("Index", "Operator");
+
+                }
+                else if(await _userManager.IsInRoleAsync(user, RoleNames.Technician))
+                {
+                    //return View("Index", "Technician");
+                    return RedirectToAction("Index", "Technician");   
+                }
+                return View();
             }
             else
             {
