@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -167,9 +168,16 @@ namespace CSG.Controllers
                 return View(nameof(Index), registerLoginViewModel);            
             }
             var data = registerLoginViewModel.LoginViewModel;
-            var result = await _signInManager.PasswordSignInAsync(data.UserName, data.Password,data.RememberMe,true);
+            var result = await _signInManager.PasswordSignInAsync(data.UserName, data.Password,data.RememberMe,true);          
+            var veri = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+            //var model =  _mapper.Map<UserProfileViewModel>(userId);
             if (result.Succeeded)
             {
+                if ( await _userManager.IsInRoleAsync(userId, RoleNames.Customer))
+                {
+                    return View("Index", "Customer");
+                }
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             else

@@ -1,0 +1,158 @@
+﻿@using CSG.Models.Entities.Enums
+@using Microsoft.Extensions.Configuration
+@model RequestViewModel
+    <!-- ========================= 
+            Google Map
+    =========================  -->
+    <section class="google-map py-0">
+      <div id="map" style="height: 500px; width: 100%"></div>
+    </section><!-- /.GoogleMap -->
+
+    <!-- ==========================
+        contact layout 1
+    =========================== -->
+    <section class="contact-layout1">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6">
+            <form asp-action="Index" class="contact-panel__form" method="post">
+                        <input asp-for="LocationX" type="hidden" id="loc-x" value="" />
+                        <input asp-for="LocationY" type="hidden" id="loc-y" value="" />
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <h4 class="contact-panel__title">Request A Quote</h4>
+                            </div> <!-- /.col-lg-12 -->
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label asp-for="RequestType1">Request Type 1 (required)</label>
+                                    <select class="form-control" asp-for="RequestType1"
+                                            asp-items="Html.GetEnumSelectList<RequestType1>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    <span asp-validation-for="RequestType1" class="text-danger" />
+                                </div>
+                            </div><!-- /.col-lg-6 -->
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label asp-for="RequestType2">Request Type 2 (required)</label>
+                                    <select class="form-control" asp-for="RequestType2"
+                                            asp-items="Html.GetEnumSelectList<RequestType2>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    <span asp-validation-for="RequestType2" class="text-danger" />
+                                </div>
+                            </div><!-- /.col-lg-6 -->
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label asp-for="ApartmentDetails">Apartment Details (required)</label>
+                                    <textarea asp-for="ApartmentDetails"
+                                              class="form-control" placeholder="Enter your apartment details"></textarea>
+                                    <span asp-validation-for="ApartmentDetails" class="text-danger" />
+
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Problem">What is your problem dude? (required)</label>
+                                    <textarea asp-for="Problem" class="form-control"
+                                              placeholder="Enter your problem"></textarea>
+                                    <span asp-validation-for="Problem" class="text-danger" />
+                                </div>
+
+                                <div class="custom-control custom-checkbox d-flex align-items-center mb-20">
+                                    <input type="checkbox" class="custom-control-input" id="terms">
+                                    <label class="custom-control-label" for="terms">I accept the privacy and terms.</label>
+                                </div>
+                                <button type="submit" class="btn btn__secondary btn__xl btn__block">Submit Request </button>
+                                <div class="contact-result"></div>
+                            </div><!-- /.col-lg-12 -->
+                        </div><!-- /.row -->
+                    </form>
+          </div><!-- /.col-lg-6 -->
+          <div class="col-sm-12 col-md-12 col-lg-5 offset-lg-1">
+            <div class="contact-panel__info bg-overlay bg-overlay-primary">
+              <div class="bg-img"><img src="~/user-assetsimages/contact/1.jpg" alt="banner"></div>
+              <div class="contact-block">
+                <h5 class="contact-block__title">Our Location</h5>
+                <ul class="contact-block__list list-unstyled">
+                  <li>2307 Beverley Rd Brooklyn, New York 11226 United States.</li>
+                </ul>
+              </div><!-- /.contact-panel__info__block -->
+              <div class="contact-block">
+                <h5 class="contact-block__title">Quick Contact</h5>
+                <ul class="contact-block__list list-unstyled">
+                  <li><a href="mailto:Mintech@7oroof.com"></a>Email: Mintech@7oroof.com</li>
+                  <li><a href="mailto:Mintech@7oroof.com"></a>Support: Mintech@7oroof.com</li>
+                </ul>
+              </div><!-- /.contact-panel__info__block -->
+              <div class="contact-block">
+                <h5 class="contact-block__title">Opening Hours</h5>
+                <ul class="contact-block__list list-unstyled">
+                  <li>Monday - Friday</li>
+                  <li>09:00 AM - 06:00 PM</li>
+                </ul>
+              </div><!-- /.contact-panel__info__block -->
+              <a href="contacs.html" class="btn btn__white btn__bordered btn__icon btn__xl">
+                <span>Find Your Solution</span>
+                <i class="icon-arrow-right"></i>
+              </a>
+            </div>
+          </div><!-- /.col-lg-5 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.contact layout 1 -->
+
+    <!-- ==========================
+       Contact Info
+    ============================ -->
+    <section class="contact-info pt-0 pb-70">
+      <div class="container">
+        <div class="row">
+          <!-- Contact panel #1 -->
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="contact-info-box">
+              <h4 class="contact__info-box-title">London Office</h4>
+              <ul class="contact__info-list list-unstyled">
+                <li>Email: <a href="mailto:Mintech@7oroof.com">Mintech@7oroof.com</a></li>
+                <li>Address: 2307 Beverley Rd Brooklyn, NY</li>
+                <li>Phone: <a href="tel:5565454117">55 654 541 17</a></li>
+                <li>Hours: Mon-Fri: 8am – 7pm</li>
+              </ul><!-- /.contact__info-list -->
+            </div><!-- /.contact-info-box -->
+          </div><!-- /.col-lg-4 -->
+          <!-- Contact panel #2 -->
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="contact-info-box">
+              <h4 class="contact__info-box-title">Berlin Office</h4>
+              <ul class="contact__info-list list-unstyled">
+                <li>Email: <a href="mailto:Mintech@7oroof.com">Mintech@7oroof.com</a></li>
+                <li>Address: 2307 Beverley Rd Brooklyn, NY</li>
+                <li>Phone: <a href="tel:5565454117">55 654 541 17</a></li>
+                <li>Hours: Mon-Fri: 8am – 7pm</li>
+              </ul><!-- /.contact__info-list -->
+            </div><!-- /.contact-info-box -->
+          </div><!-- /.col-lg-4 -->
+          <!-- Contact panel #3 -->
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="contact-info-box">
+              <h4 class="contact__info-box-title">Manchester Office</h4>
+              <ul class="contact__info-list list-unstyled">
+                <li>Email: <a href="mailto:Mintech@7oroof.com">Mintech@7oroof.com</a></li>
+                <li>Address: 2307 Beverley Rd Brooklyn, NY</li>
+                <li>Phone: <a href="tel:5565454117">55 654 541 17</a></li>
+                <li>Hours: Mon-Fri: 8am – 7pm</li>
+              </ul><!-- /.contact__info-list -->
+            </div><!-- /.contact-info-box -->
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.Contact Info -->
+@section Scripts{
+    @inject IConfiguration Configuration
+    @{
+        string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
+        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap&libraries=&v=weekly";
+    <script src=@link
+            async>
+
+    </script>
+    }
+}

@@ -1,0 +1,116 @@
+﻿@model List<ServicePriceViewModel>
+<!-- =========================
+      Pricing  
+      =========================== -->
+    <section class="pricing pt-0 bg-gray >
+      <div class="container">
+        <div class="row row-no-gutter pricing-wrapper">
+          <!-- pricing item #1-->
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="pricing-item">
+              <div>
+                <div class="pricing-item__header">
+                  <div class="pricing-item__price">
+                    <span class="pricing-item__currency">$</span><span>50</span><span
+                      class="pricing-item__time">/Monthly</span>
+                  </div>
+                  <h5 class="pricing-item__title mb-0">Starter Plan</h5>
+                </div><!-- /.pricing-item__header  -->
+                <div class="pricing-item__content">
+                  <p class="pricing-item__desc">Fast project turnaround time, substantial cost savings & quality
+                    standards.
+                  </p>
+                  <ul class="pricing-item__list list-items list-items-layout2 list-unstyled">
+                    <li>Five Brand Monitors</li>
+                    <li>Five Keyword Monitors</li>
+                    <li>Full Social Profiles</li>
+                  </ul>
+                </div><!-- /.pricing-item__content  -->
+              </div>
+              <div class="pricing-item__footer">
+                <a href="#" class="btn btn__secondary btn__block btn__icon">
+                  <span>Purchase Now</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.pricing-item__footer  -->
+            </div><!-- /.pricing-item -->
+          </div><!-- /.col-lg-4 -->
+          <!-- pricing item #2-->
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="pricing-item">
+              <div>
+                <div class="pricing-item__header">
+                  <div class="pricing-item__price">
+                    <span class="pricing-item__currency">$</span><span>70</span><span
+                      class="pricing-item__time">/Monthly</span>
+                  </div>
+                  <h5 class="pricing-item__title mb-0">Basic Plan</h5>
+                </div><!-- /.pricing-item__header  -->
+                <div class="pricing-item__content">
+                  <p class="pricing-item__desc">Fast project turnaround time, substantial cost savings & quality
+                    standards.
+                  </p>
+                  <ul class="pricing-item__list list-items list-items-layout2 list-unstyled">
+                    <li>Five Brand Monitors</li>
+                    <li>Five Keyword Monitors</li>
+                    <li>Full Social Profiles</li>
+                    <li>500 Search Results </li>
+                  </ul>
+                </div><!-- /.pricing-item__content  -->
+              </div>
+              <div class="pricing-item__footer">
+                <a href="#" class="btn btn__primary btn__block btn__icon">
+                  <span>Purchase Now</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.pricing-item__footer  -->
+            </div><!-- /.pricing-item -->
+          </div><!-- /.col-lg-4 -->
+          <!-- pricing item #3-->
+          @foreach(var item in Model.Where(x=>x.requestType2=="Home"))
+         {
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="pricing-item">
+              <div>
+                <div class="pricing-item__header">
+                  <div class="pricing-item__price">
+                    <span class="pricing-item__currency">$</span><span>@item.price</span><span
+                      class="pricing-item__time">/Monthly</span>
+                  </div>
+                  <h5 class="pricing-item__title mb-01">Advanced Plan</h5>
+                </div><!-- /.pricing-item__header  -->
+                <div class="pricing-item__content">
+                  <p class="pricing-item__desc">Fast project turnaround time, substantial cost savings & quality
+                    standards.
+                  </p>
+                  <ul class="pricing-item__list list-items list-items-layout2 list-unstyled">
+                    <li>@item.requestType1</li>
+                    <li>@item.requestType2</li>
+                    <li>Basic Quota </li>
+                    <li>PDF reports</li>
+                    <li>Full Social Profiles</li>
+                    <li>500 Search Results </li>
+                  </ul>
+                </div><!-- /.pricing-item__content  -->
+              </div>
+              <div class="pricing-item__footer">
+                <a href="#" class="btn btn__secondary btn__block btn__icon">
+                  <span>Purchase Now</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.pricing-item__footer  -->
+            </div><!-- /.pricing-item -->
+          </div><!-- /.col-lg-4 -->   
+         }
+          
+        </div><!-- /.row -->
+        <div class="row">
+          <div class="col-12 d-flex flex-wrap justify-content-center align-items-center mt-10">
+            <a href="contact-us.html" class="btn btn__secondary btn__bordered mx-3">Find Your Solution</a>
+            <a href="industries.html" class="btn btn__primary btn__link mx-3">
+              <span>Explore All Services</span><i class="icon-arrow-right icon-outlined"></i>
+            </a>
+          </div><!-- /.col-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.pricing  -->

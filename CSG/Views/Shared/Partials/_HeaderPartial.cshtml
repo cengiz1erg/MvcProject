@@ -22,40 +22,23 @@
             <div class="collapse navbar-collapse" id="mainNavigation">
                 <ul class="navbar-nav mr-auto ml-auto">
                     <li class="nav__item  has-dropdown">
-                        <a href="index.html" data-toggle="dropdown" class="dropdown-toggle nav__item-link active">Home</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav__item">
-                                <a href="index.html" class="nav__item-link">Home Main</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="home-modern.html" class="nav__item-link">Home Modern</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="home-classic.html" class="nav__item-link">Home Classic</a>
-                            </li><!-- /.nav-item -->
-                        </ul><!-- /.dropdown-menu -->
+                        <a asp-controller="Home" asp-action="Index"  class="nav__item-link active">Home</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item  has-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav__item-link">Company</a>
                         <ul class="dropdown-menu">
                             <li class="nav__item">
-                                <a href="about-us.html" class="nav__item-link">About Us</a>
+                                <a asp-controller="Company" asp-action="AboutUs" class="nav__item-link">About Us</a>
                             </li><!-- /.nav-item -->
                             <li class="nav__item">
-                                <a href="why-us.html" class="nav__item-link">Why Choose Us</a>
+                                <a asp-controller="Company" asp-action="ChooseUs" class="nav__item-link">Why Choose Us</a>
                             </li><!-- /.nav-item -->
                             <li class="nav__item">
-                                <a href="leadership-team.html" class="nav__item-link">Leadership Team</a>
+                                <a  class="nav__item-link">Leadership Team</a>
                             </li><!-- /.nav-item -->
                             <li class="nav__item">
-                                <a href="awards.html" class="nav__item-link">Award & Recognition</a>
+                                <a asp-controller="Company" asp-action="Pricing" class="nav__item-link">Pricing & Plans</a>
                             </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="pricing.html" class="nav__item-link">Pricing & Plans</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="faqs.html" class="nav__item-link">Help & FAQs</a>
-                            </li> <!-- /.nav-item -->
                             <li class="nav__item">
                                 <a href="careers.html" class="nav__item-link">Careers</a>
                             </li><!-- /.nav-item -->
@@ -155,29 +138,6 @@
                         </ul><!-- /.dropdown-menu -->
                     </li><!-- /.nav-item -->
                     <li class="nav__item  has-dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle nav__item-link">News&Media</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav__item">
-                                <a href="blog.html" class="nav__item-link">Our Blog</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="blog-single-post.html" class="nav__item-link">Single Blog Post</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="case-studies-grid.html" class="nav__item-link">Case Studies Grid</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="case-studies-modern.html" class="nav__item-link">Case Studies Modern</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="case-studies-classic.html" class="nav__item-link">Case Studies Classic</a>
-                            </li><!-- /.nav-item -->
-                            <li class="nav__item">
-                                <a href="case-studies-single.html" class="nav__item-link">Single Case Study</a>
-                            </li><!-- /.nav-item -->
-                        </ul><!-- /.dropdown-menu -->
-                    </li><!-- /.nav-item -->
-                    <li class="nav__item  has-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav__item-link">Features</a>
                         <ul class="dropdown-menu">
                             <li class="nav__item">
@@ -187,15 +147,15 @@
                                 <a href="404.html" class="nav__item-link">404 Page</a>
                             </li><!-- /.nav-item -->
                             <li class="nav__item">
-                                <a href="#" class="nav__item-link  open-register-popup" id="register-cengiz">Register</a>
+                                <a asp-controller="Home" asp-action="Register" class="nav__item-link  open-register-popup" id="register-cengiz">Register</a>
                             </li><!-- /.nav-item -->
                             <li class="nav__item">
-                                <a href="#" class="nav__item-link  open-login-popup" id="login-cengiz">Login</a>
+                                <a asp-controller="Home" asp-action="Login" class="nav__item-link  open-login-popup" id="login-cengiz">Login</a>
                             </li><!-- /.nav-item -->
                         </ul><!-- /.dropdown-menu -->
                     </li><!-- /.nav-item -->
                     <li class="nav__item">
-                        <a href="contact-us.html" class="nav__item-link">Contacts</a>
+                        <a asp-controller="Company" asp-action="Contacts" class="nav__item-link">Contacts</a>
                     </li><!-- /.nav-item -->
                 </ul><!-- /.navbar-nav -->
             </div><!-- /.navbar-collapse -->

@@ -14,6 +14,11 @@ namespace CSG.Extensions
             //var claims = context.User.Claims.ToList();
             return context.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
         }
+        public static string GetUserRole(this HttpContext context)
+        {
+            //var claims = context.User.Claims.ToList();
+            return context.User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
+        }
         public static string ToFullErrorString(this ModelStateDictionary modelState)
         {
             var messages = new List<string>();

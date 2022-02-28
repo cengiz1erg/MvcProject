@@ -9,6 +9,7 @@ namespace CSG.MapperProfiles
         public AccountProfile()
         {
             CreateMap<ApplicationUser, UserProfileViewModel>().ReverseMap();
+            CreateMap<ApplicationUser, RegisterLoginViewModel>().ReverseMap();
         }
     }
 }

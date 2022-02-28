@@ -23,10 +23,8 @@ namespace CSG.Controllers
     {
         private readonly GizemContext _gizemContext;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEmailSender _emailSender;
-
         private readonly RequestRepo _requestRepo;
-       
+        private readonly IEmailSender _emailSender;
         public OperatorController(UserManager<ApplicationUser> userManager,
                                   RequestRepo requestRepo,
                                   GizemContext gizemContext,
@@ -82,7 +80,6 @@ namespace CSG.Controllers
         {
             //var data = _requestRepo.Get(x => x.RequestStatus == RequestStatus.Delivered).ToList();
             var data = _requestRepo.Get().ToList();
-
             var query = from aur in _gizemContext.ApplicationUserRequests
                         join u in _gizemContext.Users on aur.ApplicationUserId equals u.Id
                         join r in _gizemContext.Requests on aur.RequestId equals r.Id
@@ -99,8 +96,58 @@ namespace CSG.Controllers
                             requesttype2 = r.RequestType2.ToString(),
                             requeststatus = r.RequestStatus.ToString()
                         };
-            return query;
+            var DataSource = query.ToList();
+            int count = DataSource.Cast<OperatorRequestViewModel>().Count();
+
+
+            return Json(new { result = DataSource, count = count });
         }
+        #endregion
+
+        #region AJAXCalls
+
+        [HttpPost]
+        public async Task<ActionResult> Save(string technicianid, string requestid)
+        {
+            var technician = await _userManager.FindByIdAsync(technicianid);
+            var technicianrequestcount = technician.ApplicationUserRequests.Count;
+            // eğer iki parametreden biri boş gelirse hata mesajı
+            if (technicianid == null || requestid == null)
+                return BadRequest(new
+                {
+                    Message = "Bad req."
+                });
+            var aur = new ApplicationUserRequest()
+            {
+                RequestId = new Guid(requestid),
+                ApplicationUserId = technicianid
+            };
+
+            _gizemContext.ApplicationUserRequests.Add(aur);
+            var result = _gizemContext.SaveChanges();
+            if (result == 1)
+            {
+                var request = _requestRepo.GetById(new Guid(requestid));
+                request.RequestStatus = RequestStatus.Solving;
+                _requestRepo.Update(request);
+
+
+                //email doğrulama
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(technician);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action("Index", "Home", new { userId = technicianid, code = code },protocol: Request.Scheme);
+
+                var emailMessage = new EmailMessage()
+                {
+                    Contacts = new string[] { technician.Email },
+                    Body =
+                        $"There is a fault request assigned to you by the operator.  <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                    Subject = "Fault Request Information"
+                };
+
+                await _emailSender.SendAsync(emailMessage);
+            }
+
 
             var technicianagain = await _userManager.FindByIdAsync(technicianid);
             var technicianrequestcountagain = technicianagain.ApplicationUserRequests.Count;
