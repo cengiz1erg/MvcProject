@@ -1,24 +1,53 @@
-﻿<h1>This is the detail of solving</h1>
-<ejs-grid id="Grid" dataSource="@ViewBag.DataSourceProducts" allowSelection="true" rowSelected="rowSelected" RowDeselected="rowSelected" allowPaging="true">
-    <e-grid-selectionsettings type="Multiple" enableToggle="true"></e-grid-selectionsettings>
-    <e-grid-pagesettings pageCount="2"></e-grid-pagesettings>
-    <e-grid-columns>
-        <e-grid-column type="checkbox" width="50"></e-grid-column>
-        <e-grid-column field="ProductName" headerText="ProductName" width="140"></e-grid-column>
-        <e-grid-column field="ProductPrice" headerText="ProductPrice" width="185" textAlign="Right"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
+﻿@using Microsoft.Extensions.Configuration
+<div class="row">
+    <div class="col-md-6">
 
-<div class="col-sm-12 col-md-12 col-lg-12">
+        <h1>This is the detail of solving</h1>
+        <ejs-grid id="Grid" dataSource="@ViewBag.DataSourceProducts" allowSelection="true" rowSelected="rowSelected" RowDeselected="rowSelected" allowPaging="true">
+            <e-grid-selectionsettings type="Multiple" enableToggle="true"></e-grid-selectionsettings>
+            <e-grid-pagesettings pageCount="2"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column type="checkbox" width="50"></e-grid-column>
+                <e-grid-column field="ProductName" headerText="ProductName" width="140"></e-grid-column>
+                <e-grid-column field="ProductPrice" headerText="ProductPrice" width="185" textAlign="Right"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+        <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="form-group">
-        <label >Problem Solving Details</label>
+        <label>Problem Solving Details</label>
         <textarea class="form-control" placeholder="Enter What did you do for solving Problem"></textarea>
-        <span  class="text-danger" />
+        <span class="text-danger" />
 
     </div>
     <button type="submit" class="btn btn__secondary btn__xl btn__block">Submit Request </button>
     <div class="contact-result"></div>
 </div><!-- /.col-lg-12 -->
+        <br />
+        <br />
+    </div>
+    <div class="col-md-6">
+        <div id="map" style="width:600px;height:400px;"></div>
+    </div>
+</div>
+
+
+@*<h1> Request Details</h1>
+    <div>
+    <ejs-grid id="Grid1" dataSource="@ViewBag.DatasourceTechReq" rowSelected="selectedrowtechreq" allowPaging="true" allowSorting="true">
+    <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+    <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
+    <e-grid-columns>
+    <e-grid-column field="requestid" visible="true" headerText="requestid" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
+    <e-grid-column field="apartmentdetails" headerText="apartmentdetails" width="120" type="string"></e-grid-column>
+    <e-grid-column field="problem" headerText="problem" width="120" type="string"></e-grid-column>
+    <e-grid-column field="requesttype1" headerText="requesttype1" width="120" type="string"></e-grid-column>
+    <e-grid-column field="requesttype2" headerText="requesttype2" width="120" type="string"></e-grid-column>
+    <e-grid-column field="" headerText="address" width="120" type="string"></e-grid-column>
+    </e-grid-columns>
+    </ejs-grid>
+    </div>*@
+
+
 
 <script>
     function rowSelected(args) {
@@ -29,3 +58,15 @@
         window.selectedrecords = selectedrecords;
     }
 </script>
+
+@section Scripts{
+    @inject IConfiguration Configuration
+    @{
+        string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
+        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap&libraries=&v=weekly";
+    <script src=@link
+            async>
+            var GetLocation=@ViewBag.GetLocation
+    </script>
+    }
+}

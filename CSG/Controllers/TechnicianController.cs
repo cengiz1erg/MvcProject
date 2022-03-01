@@ -17,14 +17,16 @@ namespace CSG.Controllers
         private readonly GizemContext _gizemContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ProductRepo _productRepo;
+        private readonly RequestRepo _requestRepo;
         private readonly SignInManager<ApplicationUser> _signInManager; 
 
-        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo, SignInManager<ApplicationUser> signInManager)
+        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo, SignInManager<ApplicationUser> signInManager , RequestRepo requestRepo)
         {
             _gizemContext = gizemContext;
             _userManager = userManager;
             _productRepo = productRepo;
             _signInManager = signInManager;
+            _requestRepo = requestRepo;
         }
         public async Task<IActionResult> Index(string userId)
         {
@@ -63,7 +65,11 @@ namespace CSG.Controllers
             var products = _productRepo.Get();
             var DataSource2 = products.ToList();
             ViewBag.DataSourceProducts = DataSource2;
-
+            var requestid = id;
+            var query= _requestRepo.Get(x=>x.Id.ToString() == requestid);
+            var locationx = query.Select(x => x.LocationX);
+            var locationy= query.Select(x => x.LocationY);
+            ViewBag.GetLocation = new IQueryable<double>[]{ locationx, locationy};
             return View();
         }
 
