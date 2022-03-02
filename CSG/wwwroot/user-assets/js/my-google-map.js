@@ -1,7 +1,7 @@
 var map = null;
 var marker = null;
 
-function initMap() {
+function initMap1() {
     console.log("Harita Yüklendi.");
     const myLatlng = { lat: 41.0441, lng: 29.0067 };
     map = new google.maps.Map(document.getElementById("map"), {

@@ -7,6 +7,8 @@ using CSG.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CSG.Controllers
@@ -22,6 +24,9 @@ namespace CSG.Controllers
         {
             _userManager = userManager;
             _requestRepo = requestRepo;
+            var cultureInfo = CultureInfo.GetCultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
         }
         [HttpGet]
         

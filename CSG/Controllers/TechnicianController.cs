@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,9 +68,16 @@ namespace CSG.Controllers
             ViewBag.DataSourceProducts = DataSource2;
             var requestid = id;
             var query= _requestRepo.Get(x=>x.Id.ToString() == requestid);
-            var locationx = query.Select(x => x.LocationX);
-            var locationy= query.Select(x => x.LocationY);
-            ViewBag.GetLocation = new IQueryable<double>[]{ locationx, locationy};
+            var locx = query.Select(x => x.LocationX).First().ToString();
+            var locy = query.Select(x => x.LocationY).First().ToString();
+            //var ResultX = Math.Pow(10, locx.Length - 2);
+            //var ResultY = Math.Pow(10, locy.Length - 2);
+            //locx = String.Format("{0,0:N" + $"{locx.Length - 2}" + "}", Int64.Parse(locx) / ResultX);
+            //locy = String.Format("{0,0:N" + $"{locy.Length - 2}" + "}", Int64.Parse(locy) / ResultY);
+            //var decLocX= decimal.Parse(locx, new NumberFormatInfo() { NumberDecimalSeparator = "," });
+            //var decLocY= decimal.Parse(locy, new NumberFormatInfo() { NumberDecimalSeparator = "," });
+            ViewBag.GetLocationX = locx;
+            ViewBag.GetLocationY = locy;
             return View();
         }
 

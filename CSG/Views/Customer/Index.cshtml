@@ -91,7 +91,7 @@
     @inject IConfiguration Configuration
     @{
         string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
-        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap&libraries=&v=weekly";
+        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap1&libraries=&v=weekly";
     <script src=@link
             async>
 

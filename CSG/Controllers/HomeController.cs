@@ -175,9 +175,12 @@ namespace CSG.Controllers
             {
                 if ( await _userManager.IsInRoleAsync(user, RoleNames.Customer))
                 {
-                    //return View("Index", "Customer");
                     return RedirectToAction("Index", "Customer");
 
+                }
+                else if (await _userManager.IsInRoleAsync(user, RoleNames.Passive))
+                {
+                    return RedirectToAction("Index", "Customer");
                 }
                 else if(await _userManager.IsInRoleAsync(user, RoleNames.Admin))
                 {
@@ -186,16 +189,14 @@ namespace CSG.Controllers
                 }
                 else if (await _userManager.IsInRoleAsync(user, RoleNames.Operator))
                 {
-                    //return View("Index", "Operator");
                     return RedirectToAction("Index", "Operator");
 
                 }
                 else if(await _userManager.IsInRoleAsync(user, RoleNames.Technician))
                 {
-                    //return View("Index", "Technician");
                     return RedirectToAction("Index", "Technician");   
                 }
-                return View();
+                return BadRequest();
             }
             else
             {
