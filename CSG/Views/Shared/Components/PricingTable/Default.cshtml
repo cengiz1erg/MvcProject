@@ -1,0 +1,73 @@
+﻿@model List<ServicePriceViewModel>
+<!-- =========================
+      Pricing  
+      =========================== -->
+      <br />
+      <br />
+      <br />
+    <section class=" pt-0 bg-gray >
+      <div class="container">
+        <div class="row row-no-gutter pricing-wrapper">
+          <!-- pricing item #3-->
+          @foreach(var item in Model.Where(x=>x.requestType2=="Home"))
+         {
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="pricing-item">
+              <div>
+                <div class="pricing-item__header">
+                  <div class="pricing-item__price">
+                    <span class="pricing-item__currency">₺</span><span>@item.price</span>
+                  </div>
+                </div><!-- /.pricing-item__header  -->
+                <div class="pricing-item__content">
+                  <p class="pricing-item__desc">A fast, easy and reliable service
+                  </p>
+                  <ul class="pricing-item__list list-items list-items-layout2 list-unstyled">
+                    <li>@item.requestType1</li>
+                    <li>@item.requestType2</li>
+                  </ul>
+                </div><!-- /.pricing-item__content  -->
+              </div>
+              <div class="pricing-item__footer">
+                <a asp-controller="Payment" asp-action="Index" class="btn btn__secondary btn__block btn__icon">
+                  <span>Purchase Now</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.pricing-item__footer  -->
+            </div><!-- /.pricing-item -->
+          </div><!-- /.col-lg-4 -->   
+         }         
+        </div><!-- /.row -->
+         <div class="row row-no-gutter pricing-wrapper ">
+          <!-- pricing item #3-->
+          @foreach(var item in Model.Where(x=>x.requestType2=="Company"))
+         {
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="pricing-item">
+              <div>
+                <div class="pricing-item__header">
+                  <div class="pricing-item__price">
+                    <span class="pricing-item__currency">₺</span><span>@item.price</span>
+                  </div>
+                </div><!-- /.pricing-item__header  -->
+                <div class="pricing-item__content">
+                  <p class="pricing-item__desc">A fast, easy and reliable service
+                  </p>
+                  <ul class="pricing-item__list list-items list-items-layout2 list-unstyled">
+                    <li>@item.requestType1</li>
+                    <li>@item.requestType2</li>
+                  </ul>
+                </div><!-- /.pricing-item__content  -->
+              </div>
+              <div class="pricing-item__footer">
+                <a asp-controller="Payment" asp-action="Index" class="btn btn__secondary btn__block btn__icon">
+                  <span>Purchase Now</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.pricing-item__footer  -->
+            </div><!-- /.pricing-item -->
+          </div><!-- /.col-lg-4 -->   
+         }    
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.pricing  -->

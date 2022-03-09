@@ -255,6 +255,25 @@ select {
 .border-bottom {
   border-bottom: 1px solid #e7ebef !important;
 }
+/*=======  Page Title  =======*/
+.page-title-area {
+    background: #0c1842;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+    .page-title-area .breadcrumb-nav {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+
 
 /*----------------------
      Dividers 
@@ -271,6 +290,7 @@ select {
   width: 20px;
   height: 2px;
 }
+
 
 .divider-primary {
   background-color: #00c881;

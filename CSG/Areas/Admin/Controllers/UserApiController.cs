@@ -22,21 +22,16 @@ namespace CSG.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
-        private readonly ServiceAndPriceRepo _serviceAndPriceRepo;
-        private readonly ProductRepo _productRepo;
+      
         private readonly GizemContext _gizemContext;
 
         public UserApiController(UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
-            ProductRepo productRepo,
-            ServiceAndPriceRepo serviceAndPriceRepo,
             GizemContext gizemContext
             )
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _serviceAndPriceRepo = serviceAndPriceRepo;
-            _productRepo = productRepo;
             _gizemContext = gizemContext;
         }
 
@@ -44,7 +39,6 @@ namespace CSG.Areas.Admin.Controllers
         {
             return View();
         }
-
         #region UserCRUD
         public IActionResult GetUsers([FromBody] DataManagerRequest dm)
         {
@@ -153,91 +147,8 @@ namespace CSG.Areas.Admin.Controllers
         }
         #endregion
 
-        #region ServicesCRU
-        public IActionResult GenerateServicesAndPricesOnDb()
-        {
-            List<RequestType1> list1 = Enum.GetValues(typeof(RequestType1)).Cast<RequestType1>().ToList();
-            List<RequestType2> list2 = Enum.GetValues(typeof(RequestType2)).Cast<RequestType2>().ToList();
-            foreach (var item1 in list1)
-            {
-                foreach (var item2 in list2)
-                {
-                    ServiceAndPrice serviceAndPrice = new ServiceAndPrice()
-                    {
-                        RequestType1 = item1,
-                        RequestType2 = item2
-                    };
-                    _serviceAndPriceRepo.Add(serviceAndPrice);
-                }
-            }
-            return null;
-        }
-        public IActionResult GetServices()
-        {
-            var query = from sap in _gizemContext.ServicesAndPrices
-                        select new ServicePriceViewModel
-                        {
-                            id = sap.Id,
-                            requestType1 = sap.RequestType1.ToString(),
-                            requestType2 = sap.RequestType2.ToString(),
-                            price = sap.Price
-                        };
-            var DataSource = query.ToList();
-            int count = DataSource.Cast<ServicePriceViewModel>().Count();
-            return Json(new { result = DataSource, count = count });
-        }
-        public IActionResult UpdateService([FromBody]ApiServiceJsonViewModel model)
-        {
-            var data = _serviceAndPriceRepo.GetById(model.value.id);
-            data.Price = model.value.price;
-            _serviceAndPriceRepo.Update(data);
-            return RedirectToAction(nameof(Index));
-            
-        }
-        #endregion
+      
 
-        #region ProductCRUD
-        public IActionResult GetProducts()
-        {
-            var query = from p in _gizemContext.Products
-                        select new ProductViewModel
-                        {
-                            id = p.Id,
-                            productname = p.ProductName,
-                            productprice = p.ProductPrice.ToString()
-                        };
-            var DataSource = query.ToList();
-            int count = DataSource.Cast<ProductViewModel>().Count();
-            return Json(new { result = DataSource, count = count });
-        }
-        public IActionResult InsertProduct([FromBody]ApiProductJsonViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            Product product = new Product() 
-            {
-                 ProductName = model.value.productname,
-                 ProductPrice = double.Parse(model.value.productprice)
-            };
-            _productRepo.Add(product);
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult UpdateProduct([FromBody]ApiProductJsonViewModel model)
-        {
-            var data = _productRepo.GetById(model.value.id);
-            data.ProductName = model.value.productname;
-            data.ProductPrice = double.Parse(model.value.productprice);
-            _productRepo.Update(data);
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult DeleteProduct([FromBody] ApiDeleteProductViewModel model)
-        {
-            Product product = _productRepo.GetById(model.key);
-            _productRepo.Remove(product);
-            return RedirectToAction(nameof(Index));
-        }
-        #endregion
+       
     }
 }

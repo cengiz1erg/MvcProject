@@ -1,0 +1,145 @@
+﻿@model RegisterViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Register & Signup | Adminto - Responsive Admin Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/admin-assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="~/admin-assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+    <link href="~/admin-assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
+
+    <!-- App-dark css -->
+    <link href="~/admin-assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled="disabled" />
+    <link href="~/admin-assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet" disabled="disabled" />
+
+    <!-- icons -->
+    <link href="~/admin-assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body class="loading authentication-bg authentication-bg-pattern">
+
+    <div class="account-pages mt-3 mb-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+                    <div class="text-center">
+                        <a href="index.html">
+                            <img src="~/admin-assets/images/logo-dark.png" alt="" height="22" class="mx-auto">
+                        </a>
+                        <p class="text-muted mt-2 mb-4">Responsive Admin Dashboard</p>
+                    </div>
+                    <div class="card">
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center mb-4">
+                                <h4 class="text-uppercase mt-0">Register</h4>
+                            </div>
+
+                            <form method="post" asp-area="Admin" asp-controller="Manage" asp-action="Register">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="UserName" class="form-label">UserName</label>
+                                            <input asp-for="UserName" class="form-control" type="text" placeholder="Enter your username">
+                                            <span asp-validation-for="UserName"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="Email" class="form-label">Name</label>
+                                            <input asp-for="Email" class="form-control" type="email" placeholder="Enter your email">
+                                            <span asp-validation-for="Name"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="Name" class="form-label">Surname</label>
+                                            <input asp-for="Name" class="form-control" type="text" placeholder="Enter your name">
+                                            <span asp-validation-for="Name"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="mb-3">
+                                            <label asp-for="Surname" class="form-label">Surname</label>
+                                            <input asp-for="Surname" class="form-control" type="text" placeholder="Enter your surname">
+                                            <span asp-validation-for="Surname"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="Password" class="form-label">Password</label>
+                                            <input asp-for="Password" class="form-control" type="email" placeholder="Enter your password">
+                                            <span asp-validation-for="Password"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="ConfirmPassword" class="form-label">ConfirmPassword</label>
+                                            <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Enter your confirmPassword">
+                                            <span asp-validation-for="ConfirmPassword"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                                        <label class="form-check-label" for="checkbox-signup">I accept <a href="javascript: void(0);" class="text-dark">Terms and Conditions</a></label>
+
+                                    </div>
+                                </div>
+                                <div class="mb-3 text-center d-grid">
+                                    <button class="btn btn-primary" type="submit"> Sign Up </button>
+                                </div>
+
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Already have account?  <a href="pages-login.html" class="text-dark ms-1"><b>Sign In</b></a></p>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+    <!-- Vendor -->
+    <script src="~/admin-assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/admin-assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin-assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/admin-assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/admin-assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="~/admin-assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
+    <script src="~/admin-assets/libs/feather-icons/feather.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/admin-assets/js/app.min.js"></script>
+
+</body>
+</html>

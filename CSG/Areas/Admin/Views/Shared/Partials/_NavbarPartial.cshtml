@@ -1,7 +1,4 @@
-﻿@using CSG.Models.Identity
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Http
-@using System.Security.Claims
+﻿
 @inject SignInManager<ApplicationUser> signInManager
 @inject UserManager<ApplicationUser> userManager 
 <!-- Topbar Start -->
@@ -180,7 +177,7 @@
                         <li class="dropdown notification-list topbar-dropdown">
                             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <img src="~/admin-assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
-                                <span class="pro-user-name ms-1" > @Context.User.Claims.First(x=>x.Type == ClaimTypes.Name).Value  
+                                <span class="pro-user-name ms-1"> @Context.User.Claims.First(x=>x.Type == ClaimTypes.Name).Value  
                                     <i class="mdi mdi-chevron-down"></i> 
                                 </span>
                             </a>
@@ -194,11 +191,6 @@
                                 <a asp-area="Admin" asp-controller="Manage" asp-action="Index" class="dropdown-item notify-item">
                                     <i class="fe-user"></i>
                                     <span>My Account</span>
-                                </a>
-                                <!-- item-->
-                                <a href="auth-lock-screen.html" class="dropdown-item notify-item">
-                                    <i class="fe-lock"></i>
-                                    <span>Lock Screen</span>
                                 </a>
     
                                 <div class="dropdown-divider"></div>

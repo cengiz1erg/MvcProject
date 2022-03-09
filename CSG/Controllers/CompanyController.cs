@@ -31,16 +31,7 @@ namespace CSG.Controllers
         {
             return View();
         }
-        public IActionResult Pricing()
-        {
-            //var data=_gizemContext.ServicesAndPrices
-            //    .ToList()
-            //    .Select(p => _mapper.Map<ServicePriceViewModel>(p))
-            //    .OrderBy(x => x.price)
-            //    .ToList();
-               
-            return View();
-        }
+       
 
 
     }

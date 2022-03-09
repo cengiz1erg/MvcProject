@@ -1,0 +1,15 @@
+﻿<br />
+<h1>Services And Prices</h1>
+<div>
+    <ejs-grid id="Grid" height="273" toolbar="@(new List<string>() { "Edit", "Cancel", "Update" })" allowPaging="true">
+        <e-data-manager url="/admin/serviceapi/getservices" updateUrl="/admin/serviceapi/updateservice" adaptor="UrlAdaptor"></e-data-manager>
+        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
+        <e-grid-columns>
+            <e-grid-column field="id" headerText="Id" visible="false" isPrimaryKey="true" isIdentity="true"
+                           width="120"></e-grid-column>
+            <e-grid-column field="requestType1" headerText="RequestType1" width="120"></e-grid-column>
+            <e-grid-column field="requestType2" headerText="RequestType2" width="120"></e-grid-column>
+            <e-grid-column field="price" headerText="Price" width="120"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
