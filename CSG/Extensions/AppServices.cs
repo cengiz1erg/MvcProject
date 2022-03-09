@@ -17,6 +17,7 @@ namespace CSG.Extensions
             services.AddAutoMapper(options =>
             {
                 options.AddProfile(typeof(AccountProfile));
+                options.AddProfile(typeof(PaymentProfile));
             });
             
             return services;

@@ -19,7 +19,7 @@ namespace CSG.Models.Entities
         public string ApartmentDetails { get; set; }
         public string Problem { get; set; }
         public string Explanation { get; set; }
-        public List<ProductRequest> ProductRequests { get; set; } //ek ürünler
+        public List<ProductRequest> ProductRequests { get; set; } = new();//ek ürünler
         public List<ApplicationUserRequest> ApplicationUserRequests { get; set; } = new();//customer+technician
 
 

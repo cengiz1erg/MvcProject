@@ -1,15 +1,39 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using CSG.Services.Payment;
 
-namespace CSG.Controllers
+namespace WebItProject.Controllers
 {
-    //[Authorize]
     public class PaymentController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly IPaymentService _paymentService;
+
+        public PaymentController(IPaymentService paymentService)
         {
+            _paymentService = paymentService;
+        }
+
+        //[Authorize]
+        public IActionResult Index()
+        
+        
+        {
+
             return View();
+        }
+
+        //[Authorize]
+        [HttpPost]
+        public IActionResult CheckInstallment(string binNumber)
+        {
+            if (binNumber.Length != 6)
+                return BadRequest(new
+                {
+                    Message = "Bad req."
+                });
+
+            var result = _paymentService.CheckInstallments(binNumber, 90);
+            return Ok(result);
         }
     }
 }

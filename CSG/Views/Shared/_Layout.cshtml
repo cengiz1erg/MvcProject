@@ -8,12 +8,14 @@
     <link href="~/user-assets/images/favicon/favicon.png" rel="icon">
     <title>Mintech IT Solutions & Services Template</title>
     <script src="~/user-assets/js/my-google-map.js"></script>
-    <script src="~/user-assets/js/my-map-detail.js"></script>
+    <script src="~/user-assets/js/my-map-detail.js"></script>   
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;800;900&family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/user-assets/css/libraries.css">
     <link rel="stylesheet" href="~/user-assets/css/style.css">
+    <link rel="stylesheet" href="~/user-assets/css/payment.css">
     @* Syncfusion Essential JS 2 Styles *@
     <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
 
@@ -38,16 +40,19 @@
     <script src="~/user-assets/js/jquery-3.5.1.min.js"></script>
     <script src="~/user-assets/js/plugins.js"></script>
     <script src="~/user-assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    
     @await RenderSectionAsync("Scripts", required: false)
     @*<script>
-        $(() => {
-            console.log("ready")
-            $('#login-cengiz').show();
-            $('#login-cengiz').trigger('click', function () {
-                console.log("tıklandı.")
+            $(() => {
+                console.log("ready")
+                $('#login-cengiz').show();
+                $('#login-cengiz').trigger('click', function () {
+                    console.log("tıklandı.")
+                });
             });
-        });
-    </script>*@
-     <ejs-scripts></ejs-scripts>
+        </script>*@
+    <ejs-scripts></ejs-scripts>
 </body>
 </html>
