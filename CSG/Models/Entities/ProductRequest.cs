@@ -12,5 +12,6 @@ namespace CSG.Models.Entities
         public Product Product { get; set; }
         public Guid RequestId { get; set; }
         public Request Request { get; set; }
+        public int Count { get; set; }
     }
 }

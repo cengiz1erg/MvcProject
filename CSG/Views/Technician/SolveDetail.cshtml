@@ -1,78 +1,124 @@
 ﻿@using Microsoft.Extensions.Configuration
-<div class="row">
-    <div class="col-md-6">
+@model TechnicianPostViewModel
+<div>
+    <p>@ViewBag.RequestType1 / @ViewBag.RequestType2 türündeki taleple ilgileniyorsunuz.</p>
+    <p>Apartman Bilgileri: @ViewBag.ApartmentDetails</p>
+    <p>Problemin içeriği: @ViewBag.Problem</p>
+</div>
+<div class="col-md-6">
+    <div id="map2" style="width:600px;height:400px;"></div>
+</div>
+<div>
+    <h1>Products</h1>
+    <ejs-grid id="Grid" dataSource="@ViewBag.DataSourceProducts" allowSelection="true" rowSelected="rowSelected" RowDeselected="rowSelected" allowPaging="true">
+        <e-grid-selectionsettings type="Multiple" enableToggle="true"></e-grid-selectionsettings>
+        <e-grid-pagesettings pageCount="2"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column type="checkbox" width="50"></e-grid-column>
+            <e-grid-column field="Id" headerText="Id" width="140"></e-grid-column>
+            <e-grid-column field="ProductName" headerText="ProductName" width="140"></e-grid-column>
+            <e-grid-column field="ProductPrice" headerText="ProductPrice" width="185" textAlign="Right"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
+<button id="buttonupdate" onclick="myFunction2()" class="btn btn__secondary btn__xl btn__block">Add Product</button>
+<div>
+    <h1>Products and Counts</h1>
+    <ejs-grid id="Grid5" allowSorting="true" allowFiltering="true" height="273" toolbar="@(new List<string>() {  "Edit", "Delete", "Cancel", "Update" })" allowPaging="true">
+        <e-data-manager url="/technician/getproducts" updateUrl="/technician/updateproduct" removeUrl="/technician/removeproduct" adaptor="UrlAdaptor"></e-data-manager>
+        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal"></e-grid-editSettings>
+        <e-grid-columns>
+            <e-grid-column field="id" headerText="ProductId" visible="true" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
+            <e-grid-column field="productname" headerText="productname" width="120" type="string"></e-grid-column>
+            <e-grid-column field="productprice" headerText="productprice" width="120"></e-grid-column>
+            <e-grid-column field="productcount" headerText="productcount" width="120"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
 
-        <h1>This is the detail of solving</h1>
-        <ejs-grid id="Grid" dataSource="@ViewBag.DataSourceProducts" allowSelection="true" rowSelected="rowSelected" RowDeselected="rowSelected" allowPaging="true">
-            <e-grid-selectionsettings type="Multiple" enableToggle="true"></e-grid-selectionsettings>
-            <e-grid-pagesettings pageCount="2"></e-grid-pagesettings>
-            <e-grid-columns>
-                <e-grid-column type="checkbox" width="50"></e-grid-column>
-                <e-grid-column field="ProductName" headerText="ProductName" width="140"></e-grid-column>
-                <e-grid-column field="ProductPrice" headerText="ProductPrice" width="185" textAlign="Right"></e-grid-column>
-            </e-grid-columns>
-        </ejs-grid>
-        <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class="form-group">
-        <label>Problem Solving Details</label>
-        <textarea class="form-control" placeholder="Enter What did you do for solving Problem"></textarea>
-        <span class="text-danger" />
-
-    </div>
-    <button type="submit" class="btn btn__secondary btn__xl btn__block">Submit Request </button>
-    <div class="contact-result"></div>
-</div><!-- /.col-lg-12 -->
-        <br />
-        <br />
-    </div>
-    <div class="col-md-6">
-        <div id="map2" style="width:600px;height:400px;"></div>
-    </div>
 </div>
 
-
-@*<h1> Request Details</h1>
-    <div>
-    <ejs-grid id="Grid1" dataSource="@ViewBag.DatasourceTechReq" rowSelected="selectedrowtechreq" allowPaging="true" allowSorting="true">
-    <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
-    <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
-    <e-grid-columns>
-    <e-grid-column field="requestid" visible="true" headerText="requestid" isPrimaryKey="true" isIdentity="true" width="120" type="string"></e-grid-column>
-    <e-grid-column field="apartmentdetails" headerText="apartmentdetails" width="120" type="string"></e-grid-column>
-    <e-grid-column field="problem" headerText="problem" width="120" type="string"></e-grid-column>
-    <e-grid-column field="requesttype1" headerText="requesttype1" width="120" type="string"></e-grid-column>
-    <e-grid-column field="requesttype2" headerText="requesttype2" width="120" type="string"></e-grid-column>
-    <e-grid-column field="" headerText="address" width="120" type="string"></e-grid-column>
-    </e-grid-columns>
-    </ejs-grid>
-    </div>*@
+<form method="post" asp-controller="Technician" asp-action="SolveDetail">
+    <input type="hidden" asp-for="Id" value="@ViewBag.Viewrequestid" />
+    <textarea class="form-control" asp-for="Explanation" placeholder="Enter What did you do for solving Problem"></textarea>
+    <input type="submit" class="main-btn" value="Tamamla" />
+</form>
 
 
 
-<script>
-    function rowSelected(args) {
-        var selectedrowindex = this.getSelectedRowIndexes();  // get the selected row indexes.
-        console.log("request index: " + selectedrowindex);
-        var selectedrecords = this.getSelectedRecords();  // get the selected records.
-        console.log("request records: " + selectedrecords);
-        window.selectedrecords = selectedrecords;
-    }
-</script>
 
-@section Scripts{
-    @inject IConfiguration Configuration
-    @{
-        string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
-        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap2&libraries=&v=weekly";
-        <script src=@link
-                async>
-        </script>
-        <script>
+
+    <script>
+        function getSearchParameters() {
+            var prmstr = window.location.search.substr(1);
+            return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+        }
+
+        function transformToAssocArray(prmstr) {
+            var params = {};
+            var prmarr = prmstr.split("&");
+            for (var i = 0; i < prmarr.length; i++) {
+                var tmparr = prmarr[i].split("=");
+                params[tmparr[0]] = tmparr[1];
+            }
+            return params;
+        }
+
+        var params = getSearchParameters();
+
+
+
+        function myFunction2() {
+            console.log("tıklandı")
+            var selectedproducts = selectedrecords.map(val => val.Id)
+            $.ajax({
+                type: "POST",
+                url: '/technician/addproducts',
+                dataType: "json",
+                traditional: true,
+                data: {
+                    productids: selectedproducts,
+                    requestid: params.id
+                },
+                error: function (request, status, error) {
+                    console.log("başarısız");
+                },
+                success: function (response) {
+                    console.log("başarılı");
+                    console.log(response);
+                    /*window.open("/technician/solvedetail?id=" + response);*/
+                    window.location.reload();
+                }
+            });
+        }
+
+    </script>
+    <script>
+        function rowSelected(args) {
+            var selectedrowindex = this.getSelectedRowIndexes();  // get the selected row indexes.
+            console.log("request index: " + selectedrowindex);
+            var selectedrecords = this.getSelectedRecords();  // get the selected records.
+            console.log("request records: " + selectedrecords);
+            window.selectedrecords = selectedrecords;
+        }
+    </script>
+
+    @section Scripts{
+        @inject IConfiguration Configuration
+        @{
+            string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
+            string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap2&libraries=&v=weekly";
+            <script src=@link
+                    async>
+            </script>
+            <script>
             var myJsVariableX = '@ViewBag.GetLocationX';
             myJsVariableX = parseFloat(myJsVariableX.replace(/,/g, '.'));
             var myJsVariableY = '@ViewBag.GetLocationY';
             myJsVariableY = parseFloat(myJsVariableY.replace(/,/g, '.'));
 
-        </script>
+            </script>
+        }
     }
-}
+
+    }
+
