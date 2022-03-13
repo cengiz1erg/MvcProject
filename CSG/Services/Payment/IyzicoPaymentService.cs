@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using AutoMapper;
+using CSG.Models.Payment;
 using Iyzipay.Model;
 using Iyzipay.Request;
 using Microsoft.Extensions.Configuration;
 using MUsefulMethods;
-using CSG.Models.Payment;
 
 namespace CSG.Services.Payment
 {
@@ -31,7 +32,41 @@ namespace CSG.Services.Payment
 
         public PaymentResponseModel Pay(PaymentModel model)
         {
-            return null;
+            CreatePaymentRequest request = this.InitialPaymentRequest(model);
+            var payment = Iyzipay.Model.Payment.Create(request, _options);
+            return _mapper.Map<PaymentResponseModel>(payment);
+        }
+
+        private CreatePaymentRequest InitialPaymentRequest(PaymentModel model)
+        {
+            var paymentRequest = new CreatePaymentRequest
+            {
+                Installment = model.Installment,
+                Locale = Locale.TR.ToString(),
+                ConversationId = GenerateConversationId(),
+                Price = model.Price.ToString(new CultureInfo("en-US")),
+                PaidPrice = model.PaidPrice.ToString(new CultureInfo("en-US")),
+                Currency = Currency.TRY.ToString(),
+                BasketId = StringHelpers.GenerateUniqueCode(),
+                PaymentChannel = PaymentChannel.WEB.ToString(),
+                PaymentGroup = PaymentGroup.PRODUCT.ToString(),
+                PaymentCard = _mapper.Map<PaymentCard>(model.CardModel),
+                Buyer = _mapper.Map<Buyer>(model.Customer),
+                BillingAddress = _mapper.Map<Address>(model.Address),
+                ShippingAddress = _mapper.Map<Address>(model.Address),
+                
+            };
+
+            var basketItems = new List<BasketItem>();
+
+            foreach (var basketModel in model.BasketList)
+            {
+                basketItems.Add(_mapper.Map<BasketItem>(basketModel));
+            }
+
+            paymentRequest.BasketItems = basketItems;
+
+            return paymentRequest;
         }
 
         public InstallmentModel CheckInstallments(string binNumber, decimal price)

@@ -135,7 +135,7 @@ namespace CSG.Controllers
                 //email doğrulama
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(technician);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Action("Index", "Technician", new { userId = technicianid, code = code },protocol: Request.Scheme);
+                var callbackUrl = Url.Action("Index", "Payment", new { userId = technicianid, code = code },protocol: Request.Scheme);
 
                 var emailMessage = new EmailMessage()
                 {

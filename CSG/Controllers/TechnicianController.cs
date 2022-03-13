@@ -1,8 +1,11 @@
 ﻿using CSG.Data;
 using CSG.Extensions;
+using CSG.Models;
 using CSG.Models.Entities;
+using CSG.Models.Entities.Enums;
 using CSG.Models.Identity;
 using CSG.Repository;
+using CSG.Services;
 using CSG.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace CSG.Controllers
@@ -22,15 +26,17 @@ namespace CSG.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ProductRepo _productRepo;
         private readonly RequestRepo _requestRepo;
-        private readonly SignInManager<ApplicationUser> _signInManager; 
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailSender _emailSender;
 
-        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo, SignInManager<ApplicationUser> signInManager , RequestRepo requestRepo)
+        public TechnicianController(GizemContext gizemContext, UserManager<ApplicationUser> userManager, ProductRepo productRepo, SignInManager<ApplicationUser> signInManager , RequestRepo requestRepo, IEmailSender emailSender)
         {
             _gizemContext = gizemContext;
             _userManager = userManager;
             _productRepo = productRepo;
             _signInManager = signInManager;
             _requestRepo = requestRepo;
+            _emailSender = emailSender;
         }
         public async Task<IActionResult> Index(string userId)
         {
@@ -164,21 +170,26 @@ namespace CSG.Controllers
             ViewBag.ApartmentDetails = _requestRepo.GetById(new Guid(id)).ApartmentDetails;
             ViewBag.RequestType1 = _requestRepo.GetById(new Guid(id)).RequestType1.ToString();
             ViewBag.RequestType2 = _requestRepo.GetById(new Guid(id)).RequestType2.ToString();
+            //ViewBag.Explanation = _requestRepo.GetById(new Guid(id)).Explanation;
             var query= _requestRepo.Get(x=>x.Id.ToString() == requestid);
             var locx = query.Select(x => x.LocationX).First().ToString();
             var locy = query.Select(x => x.LocationY).First().ToString();
             ViewBag.GetLocationX = locx;
             ViewBag.GetLocationY = locy;
-            return View();
+            TechnicianPostViewModel technicianPostViewModel = new TechnicianPostViewModel()
+            {
+                Explanation = _requestRepo.GetById(new Guid(id)).Explanation,
+                Id = id
+            };
+            return View(technicianPostViewModel);
         }
 
         [HttpPost]
-        public IActionResult SolveDetail(TechnicianPostViewModel model)
+        public async Task<IActionResult> SolveDetail(TechnicianPostViewModel model)
         {
             
             if (ModelState.IsValid)
-            {
-                
+            {                
                 Request currentRequest = _requestRepo.GetById(new Guid(model.Id));
 
                 // toplam tutar
@@ -188,20 +199,83 @@ namespace CSG.Controllers
                 Double currentProducts = _gizemContext.Requests
                     .Include(r => r.ProductRequests)
                     .ThenInclude(pr => pr.Product)
-                    .Where(r => r.Id == new Guid(model.Id))
+                    .Where(r => r.Id == new Guid(model.Id)) 
                     .Select(r => r.ProductRequests)
                     .AsEnumerable()
                     .Select(lst => lst.Select(pr => pr.Count * pr.Product.ProductPrice))
                     .ToList()[0]
                     .Sum();
+                
+                currentRequest.Explanation = model.Explanation; //request explanation from technician
+                currentRequest.PurchaseAmount = (decimal)currentProducts + currentServicePrice; //Ürün tutarı
+                currentRequest.RequestStatus = RequestStatus.Solved; //Solved
+                _gizemContext.Requests.Update(currentRequest);
+                _gizemContext.SaveChanges();
 
-                //request explanation from technician
+                var query = (from aur in _gizemContext.ApplicationUserRequests
+                             join u in _gizemContext.Users on aur.ApplicationUserId equals u.Id
+                             join r in _gizemContext.Requests on aur.RequestId equals r.Id
+                             join ur in _gizemContext.UserRoles on u.Id equals ur.UserId
+                             join rol in _gizemContext.Roles on ur.RoleId equals rol.Id
+                             where rol.Name == RoleNames.Customer || rol.Name == RoleNames.Passive
+                             where r.Id.ToString() == model.Id
+                             select new
+                             {
+                                 userId = u.Id
+                             })
+                             .FirstOrDefault();
 
-                //request status solved
-                Console.WriteLine("blabla");
+                var userId = query.userId;
+                if (userId != null)
+                {
+                    var user = await _userManager.FindByIdAsync(userId);
+                    var callbackUrl = Url.Action("Index", "Payment", new { reqId = model.Id , userId = userId }, protocol: Request.Scheme);
+                    var emailMessage = new EmailMessage()
+                    {
+                        Contacts = new string[] { user.Email },
+                        Body = $"Talebiniz çözülmüştür. <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Ödeme sayfasına gitmek için tıklayın.</a>.",
+                        Subject = "Sorununuz uzman ekibimizce çözülmüştür"
+                    };
+                    await _emailSender.SendAsync(emailMessage);
+                    // e-mail gönderildi sayfasına yönlendir
+                    return RedirectToAction(nameof(Success));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Failure));
+                }                 
             }
-
+            //model hatalı teknisyenin ana sayfasına yönlendir
             return RedirectToAction("Index", new { userId = HttpContext.GetUserId() });  
+        }
+
+        [HttpGet]
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Failure()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateExplanation(string textarea)
+        {
+            var requestid = TempData["currentrequestid"].ToString();
+            if (textarea != null)
+            {            
+                Request currentRequest = _requestRepo.GetById(new Guid(requestid));
+                currentRequest.Explanation = textarea;
+                _gizemContext.Requests.Update(currentRequest);
+                _gizemContext.SaveChanges();
+                TempData["currentrequestid"] = requestid;
+                return Ok();
+            }
+            TempData["currentrequestid"] = requestid;
+            return BadRequest();
+            
         }
 
         public IActionResult RequestId(string selectedrowreq)

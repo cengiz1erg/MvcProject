@@ -7,7 +7,7 @@ namespace CSG.ViewModels
 {
     public class TechnicianPostViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; set; } //request id
         public string Explanation { get; set; }
     }
 }

@@ -19,9 +19,9 @@ namespace CSG.Models.Entities
         public string ApartmentDetails { get; set; }
         public string Problem { get; set; }
         public string Explanation { get; set; }
+        public decimal PurchaseAmount { get; set; } // İşlem ne kadar tuttu?
+        public decimal PaidAmount { get; set; } // Ödenen tutar ne kadar?
         public List<ProductRequest> ProductRequests { get; set; } = new();//ek ürünler
         public List<ApplicationUserRequest> ApplicationUserRequests { get; set; } = new();//customer+technician
-
-
     }
 }

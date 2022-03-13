@@ -1,5 +1,13 @@
 ﻿@using Microsoft.Extensions.Configuration
 @model TechnicianPostViewModel
+
+@*@{
+        var parms = new Dictionary<string, string>
+        {
+                    { "reqid", ViewBag.Viewrequestid },
+                    { "explanation", ViewBag.Explanation }
+        };
+    }*@
 <div>
     <p>@ViewBag.RequestType1 / @ViewBag.RequestType2 türündeki taleple ilgileniyorsunuz.</p>
     <p>Apartman Bilgileri: @ViewBag.ApartmentDetails</p>
@@ -39,86 +47,111 @@
 
 <form method="post" asp-controller="Technician" asp-action="SolveDetail">
     <input type="hidden" asp-for="Id" value="@ViewBag.Viewrequestid" />
-    <textarea class="form-control" asp-for="Explanation" placeholder="Enter What did you do for solving Problem"></textarea>
+    <textarea class="form-control" id="textarea" asp-for="Explanation">   
+     
+    </textarea>
+    <input type="button" value="Update" onclick='UpdateStatus()' id="buttonId" />
     <input type="submit" class="main-btn" value="Tamamla" />
 </form>
 
 
 
+<script>
+    function UpdateStatus() {
+        var textarea = $('#textarea').val(); //Get the values from the page you want to post
 
-
-    <script>
-        function getSearchParameters() {
-            var prmstr = window.location.search.substr(1);
-            return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-        }
-
-        function transformToAssocArray(prmstr) {
-            var params = {};
-            var prmarr = prmstr.split("&");
-            for (var i = 0; i < prmarr.length; i++) {
-                var tmparr = prmarr[i].split("=");
-                params[tmparr[0]] = tmparr[1];
+        $.ajax({ //Do an ajax post to the controller
+            type: 'POST',
+            url: '/Technician/UpdateExplanation',
+            data: {
+                textarea: textarea
+            },
+            dataType: "json",
+            error: function (request, status, error) {
+                console.log("başarısız");
+            },
+            success: function (response) {
+                console.log("başarılı");
+                console.log(response);
+                /*window.open("/technician/solvedetail?id=" + response);*/
+                window.location.reload();
             }
-            return params;
+        });
+    }
+</script>
+
+<script>
+
+
+    function getSearchParameters() {
+        var prmstr = window.location.search.substr(1);
+        return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+    }
+
+    function transformToAssocArray(prmstr) {
+        var params = {};
+        var prmarr = prmstr.split("&");
+        for (var i = 0; i < prmarr.length; i++) {
+            var tmparr = prmarr[i].split("=");
+            params[tmparr[0]] = tmparr[1];
         }
+        return params;
+    }
 
-        var params = getSearchParameters();
+    var params = getSearchParameters();
 
 
 
-        function myFunction2() {
-            console.log("tıklandı")
-            var selectedproducts = selectedrecords.map(val => val.Id)
-            $.ajax({
-                type: "POST",
-                url: '/technician/addproducts',
-                dataType: "json",
-                traditional: true,
-                data: {
-                    productids: selectedproducts,
-                    requestid: params.id
-                },
-                error: function (request, status, error) {
-                    console.log("başarısız");
-                },
-                success: function (response) {
-                    console.log("başarılı");
-                    console.log(response);
-                    /*window.open("/technician/solvedetail?id=" + response);*/
-                    window.location.reload();
-                }
-            });
-        }
+    function myFunction2() {
+        console.log("tıklandı")
+        var selectedproducts = selectedrecords.map(val => val.Id)
+        $.ajax({
+            type: "POST",
+            url: '/technician/addproducts',
+            dataType: "json",
+            traditional: true,
+            data: {
+                productids: selectedproducts,
+                requestid: params.id
+            },
+            error: function (request, status, error) {
+                console.log("başarısız");
+            },
+            success: function (response) {
+                console.log("başarılı");
+                console.log(response);
+                /*window.open("/technician/solvedetail?id=" + response);*/
+                window.location.reload();
+            }
+        });
+    }
 
-    </script>
-    <script>
-        function rowSelected(args) {
-            var selectedrowindex = this.getSelectedRowIndexes();  // get the selected row indexes.
-            console.log("request index: " + selectedrowindex);
-            var selectedrecords = this.getSelectedRecords();  // get the selected records.
-            console.log("request records: " + selectedrecords);
-            window.selectedrecords = selectedrecords;
-        }
-    </script>
+</script>
+<script>
+    function rowSelected(args) {
+        var selectedrowindex = this.getSelectedRowIndexes();  // get the selected row indexes.
+        console.log("request index: " + selectedrowindex);
+        var selectedrecords = this.getSelectedRecords();  // get the selected records.
+        console.log("request records: " + selectedrecords);
+        window.selectedrecords = selectedrecords;
+    }
+</script>
 
-    @section Scripts{
-        @inject IConfiguration Configuration
-        @{
-            string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
-            string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap2&libraries=&v=weekly";
-            <script src=@link
-                    async>
-            </script>
-            <script>
+@section Scripts{
+    @inject IConfiguration Configuration
+    @{
+        string api_key = Configuration.GetSection("GoogleMapApiKey")["Key"];
+        string link = "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&callback=initMap2&libraries=&v=weekly";
+        <script src=@link
+                async>
+        </script>
+        <script>
             var myJsVariableX = '@ViewBag.GetLocationX';
             myJsVariableX = parseFloat(myJsVariableX.replace(/,/g, '.'));
             var myJsVariableY = '@ViewBag.GetLocationY';
             myJsVariableY = parseFloat(myJsVariableY.replace(/,/g, '.'));
 
-            </script>
-        }
+        </script>
     }
-
-    }
+}
 

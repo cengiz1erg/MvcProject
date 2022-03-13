@@ -9,6 +9,7 @@ namespace CSG.Models.Entities.Enums
     {
         Delivered,
         Solving,
-        Solved
+        Solved,
+        Paid
     }
 }

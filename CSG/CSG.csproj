@@ -20,6 +20,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Geocoding.Core" Version="4.0.1" />
+    <PackageReference Include="Geocoding.Google" Version="4.0.1" />
+    <PackageReference Include="Geocoding.MapQuest" Version="4.0.1" />
     <PackageReference Include="Iyzipay" Version="2.1.39" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.14" />

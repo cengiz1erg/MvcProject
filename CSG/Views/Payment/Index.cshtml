@@ -57,30 +57,31 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-4">
+                                        <div class="order-details mt-md-gap-50">
+                                            <h6 class="title">Ödeme Seçenekleri</h6>
+                                            <div class="order-table table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Taksit Sayısı</th>
+                                                            <th>Ödenecek Tutar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="table-installment">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="payment-box mt-30">
+
+                                                <input type="submit" class="main-btn" value="Ödeme Yap" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="order-details mt-md-gap-50">
-                                    <h6 class="title">Ödeme Seçenekleri</h6>
-                                    <div class="order-table table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Taksit Sayısı</th>
-                                                    <th>Ödenecek Tutar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="table-installment">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="payment-box mt-30">
 
-                                        <input type="submit" class="main-btn" value="Ödeme Yap" />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                 </div>
             </div>
@@ -95,10 +96,11 @@
     });
     $("#txtCardNumber").keyup(function() {
         var bin = $(this).val();
-        if (bin.length >=6) {
+        if (bin.length == 6) {
             console.log(bin);
             var model = {
-                binNumber: bin
+                binNumber: bin,
+                Price: @ViewBag.Price.ToString(new CultureInfo("en-US"))
             };
             $.ajax({
                 url: '@Url.Action("CheckInstallment", "Payment")',

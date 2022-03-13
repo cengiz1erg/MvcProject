@@ -43,6 +43,13 @@ namespace CSG.Data
                 .HasPrecision(8, 2);
             modelBuilder.Entity<ServiceAndPrice>()
                 .HasIndex(sap => new { sap.RequestType1, sap.RequestType2 }).IsUnique();
+
+            modelBuilder.Entity<Request>()
+                .Property(x => x.PurchaseAmount)
+                .HasPrecision(8, 2);
+            modelBuilder.Entity<Request>()
+                .Property(x => x.PaidAmount)
+                .HasPrecision(8, 2);
         }
 
         public DbSet<Request> Requests { get; set; }
